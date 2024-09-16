@@ -99,17 +99,17 @@ Math.max(0, data[1]['hours']).toLocaleString("en-US")
 ))
 }});
 
-define({id: "1806b610", inputs: ["view","Inputs"], outputs: ["hrs"], body: (view,Inputs) => {
-const hrs = view(Inputs.radio(new Map([
+define({id: "a77b92ca", inputs: ["view","Inputs"], outputs: ["hrs_base"], body: (view,Inputs) => {
+const hrs_base = view(Inputs.radio(new Map([
     ['<= 29', 1756],
     ['30-39', 1732],
     ['>= 40', 1700],
     ])))
 
-return {hrs};
+return {hrs_base};
 }});
 
-define({id: "ae9a0950", inputs: ["view","Inputs","hrs"], outputs: ["seltitle"], body: (view,Inputs,hrs) => {
+define({id: "319687a9", inputs: ["view","Inputs","hrs_base"], outputs: ["seltitle"], body: (view,Inputs,hrs_base) => {
 var seltitle = view(Inputs.radio(new Map([
   ['Lektor', {'base':0.1, "research": 0.3, "teaching": 0.7, "dev": 0}],
   ['Lektor med docentkompetens', {'base': 0.1, "research" : 0.35, "teaching": 0.65, "dev": 0}],
@@ -117,7 +117,7 @@ var seltitle = view(Inputs.radio(new Map([
   ['Biträdande Lektor', {'base': 0.05, "research" : 0.51, "teaching": 0.49, "dev": 0}],
   ['Adjunkt', {'base': 0.05, "research" : 0, "teaching": 0.80, "dev": 0.20}],
 ]),
-{disabled : hrs == null, width: 500
+{disabled : hrs_base == null, width: 500
 }))
 return {seltitle};
 }});
@@ -141,6 +141,22 @@ const bidrag = view(Inputs.range([0, max_research_percent * 100],
     width: 500
     }))
 return {bidrag};
+}});
+
+define({id: "a8a6a43e", inputs: ["view","Inputs","title","notitle"], outputs: ["deltid"], body: (view,Inputs,title,notitle) => {
+const deltid = view(Inputs.range([5, 100],
+  {
+    'step': 5,
+    disabled : title == notitle,
+    width: 500,
+    value: 100
+    }))
+return {deltid};
+}});
+
+define({id: "1c397390", inputs: ["hrs_base","deltid"], outputs: ["hrs"], body: (hrs_base,deltid) => {
+const hrs = hrs_base * deltid / 100
+return {hrs};
 }});
 
 define({id: "89af9455", inputs: ["title","hrs"], outputs: ["granted_hours"], body: (title,hrs) => {
@@ -271,13 +287,16 @@ toggleDivVisibility('dev', data[1]['hours'])
   </div>
 
 <h5>1. Hur gammal är du?</h5>
-<div class="observablehq observablehq--block"><!--:1806b610:--></div>
+<div class="observablehq observablehq--block"><!--:a77b92ca:--></div>
 <h5>2. Vilken anställningsform har du?</h5>
-<div class="observablehq observablehq--block"><!--:ae9a0950:--></div>
+<div class="observablehq observablehq--block"><!--:319687a9:--></div>
 <div class="observablehq observablehq--block"><!--:655b8f3e:--></div>
 <div class="observablehq observablehq--block"><!--:2b53973e:--></div>
 <h5>3. Hur stor andel bidragsfinansierad forskning har du?</h5>
 <div class="observablehq observablehq--block"><!--:e13965cc:--></div>
+<h5>4. Deltid?</h5>
+<div class="observablehq observablehq--block"><!--:a8a6a43e:--></div>
+<div class="observablehq observablehq--block"><!--:1c397390:--></div>
 <div class="observablehq observablehq--block"><!--:89af9455:--></div>
 <div class="observablehq observablehq--block"><!--:c60932db:--></div>
 <div class="observablehq observablehq--block"><!--:6e75528a:--></div>
