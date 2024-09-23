@@ -57,45 +57,45 @@
 
 import {define} from "./_observablehq/client.6fc6ba25.js";
 
-define({id: "b431fba4", mode: "inline", inputs: ["hrs","display"], body: async (hrs,display) => {
+define({id: "192e2e6a", mode: "inline", inputs: ["hrs","display"], body: async (hrs,display) => {
 display(await(
-Math.max(0, hrs).toLocaleString("en-US")
+Math.max(0, hrs).toLocaleString("sv-SE")
 ))
 }});
 
-define({id: "088acd8f", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
+define({id: "38e1575d", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
 display(await(
-Math.max(0, data[0]['percent']).toLocaleString("en-US")
+Math.max(0, data[0]['percent']).toLocaleString("sv-SE")
 ))
 }});
 
-define({id: "a209ab5a", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
+define({id: "169b7d75", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
 display(await(
-Math.max(0, data[0]['hours']).toLocaleString("en-US")
+Math.max(0, data[0]['hours']).toLocaleString("sv-SE")
 ))
 }});
 
-define({id: "c713817d", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
+define({id: "90a5ade6", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
 display(await(
-Math.max(0, data[2]['percent']).toLocaleString("en-US")
+Math.max(0, data[2]['percent']).toLocaleString("sv-SE")
 ))
 }});
 
-define({id: "6473289b", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
+define({id: "0886758d", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
 display(await(
-Math.max(0, data[2]['hours']).toLocaleString("en-US")
+Math.max(0, data[2]['hours']).toLocaleString("sv-SE")
 ))
 }});
 
-define({id: "bca44930", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
+define({id: "9a8659d5", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
 display(await(
-Math.max(0, data[1]['percent']).toLocaleString("en-US")
+Math.max(0, data[1]['percent']).toLocaleString("sv-SE")
 ))
 }});
 
-define({id: "038b9981", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
+define({id: "1514e89a", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
 display(await(
-Math.max(0, data[1]['hours']).toLocaleString("en-US")
+Math.max(0, data[1]['hours']).toLocaleString("sv-SE")
 ))
 }});
 
@@ -271,19 +271,19 @@ toggleDivVisibility('dev', data[1]['hours'])
   </div>
   <div class="card" id="hrs">
     <h2>Hours</h2>
-    <span class="big"><observablehq-loading></observablehq-loading><!--:b431fba4:--></span>
+    <span class="big"><observablehq-loading></observablehq-loading><!--:192e2e6a:--></span>
   </div>
   <div class="card" id="other">
-    <h2>Övrig tid (<observablehq-loading></observablehq-loading><!--:088acd8f:--> %)</h2>
-    <span class="big"><observablehq-loading></observablehq-loading><!--:a209ab5a:--></span>
+    <h2>Övrig tid (<observablehq-loading></observablehq-loading><!--:38e1575d:--> %)</h2>
+    <span class="big"><observablehq-loading></observablehq-loading><!--:169b7d75:--></span>
   </div>
   <div class="card" id="teach">
-    <h2>Teaching (<observablehq-loading></observablehq-loading><!--:c713817d:--> %)</h2>
-    <span class="big"><observablehq-loading></observablehq-loading><!--:6473289b:--></span>
+    <h2>Teaching (<observablehq-loading></observablehq-loading><!--:90a5ade6:--> %)</h2>
+    <span class="big"><observablehq-loading></observablehq-loading><!--:0886758d:--></span>
   </div>
   <div class="card" id="dev">
-    <h2>kompetensutveckling (<observablehq-loading></observablehq-loading><!--:bca44930:--> %)</h2>
-    <span class="big"><observablehq-loading></observablehq-loading><!--:038b9981:--></span>
+    <h2>kompetensutveckling (<observablehq-loading></observablehq-loading><!--:9a8659d5:--> %)</h2>
+    <span class="big"><observablehq-loading></observablehq-loading><!--:1514e89a:--></span>
   </div>
 
 <h5>1. Hur gammal är du?</h5>
