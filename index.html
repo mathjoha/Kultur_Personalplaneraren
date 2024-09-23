@@ -133,6 +133,16 @@ const max_research_percent = 1 - title['base'] - 0.2 - title['dev']
 return {max_research_percent};
 }});
 
+define({id: "63175297", inputs: ["view","Inputs","title","notitle"], outputs: ["deltid"], body: (view,Inputs,title,notitle) => {
+const deltid = view(Inputs.range([5, 100],
+  {
+      disabled : title == notitle,
+    width: 500,
+    value: 100
+    }))
+return {deltid};
+}});
+
 define({id: "e13965cc", inputs: ["view","Inputs","max_research_percent","title","notitle"], outputs: ["bidrag"], body: (view,Inputs,max_research_percent,title,notitle) => {
 const bidrag = view(Inputs.range([0, max_research_percent * 100],
   {
@@ -141,17 +151,6 @@ const bidrag = view(Inputs.range([0, max_research_percent * 100],
     width: 500
     }))
 return {bidrag};
-}});
-
-define({id: "a8a6a43e", inputs: ["view","Inputs","title","notitle"], outputs: ["deltid"], body: (view,Inputs,title,notitle) => {
-const deltid = view(Inputs.range([5, 100],
-  {
-    'step': 5,
-    disabled : title == notitle,
-    width: 500,
-    value: 100
-    }))
-return {deltid};
 }});
 
 define({id: "1c397390", inputs: ["hrs_base","deltid"], outputs: ["hrs"], body: (hrs_base,deltid) => {
@@ -292,10 +291,10 @@ toggleDivVisibility('research', tott)
 <div class="observablehq observablehq--block"><!--:319687a9:--></div>
 <div class="observablehq observablehq--block"><!--:655b8f3e:--></div>
 <div class="observablehq observablehq--block"><!--:2b53973e:--></div>
-<h5>3. Hur stor andel bidragsfinansierad forskning har du?</h5>
+<h5>3. Hur stor omfattning har din anställning?</h5>
+<div class="observablehq observablehq--block"><!--:63175297:--></div>
+<h5>4. Hur stor andel bidragsfinansierad forskning har du?</h5>
 <div class="observablehq observablehq--block"><!--:e13965cc:--></div>
-<h5>4. Deltid?</h5>
-<div class="observablehq observablehq--block"><!--:a8a6a43e:--></div>
 <div class="observablehq observablehq--block"><!--:1c397390:--></div>
 <div class="observablehq observablehq--block"><!--:89af9455:--></div>
 <div class="observablehq observablehq--block"><!--:c60932db:--></div>
