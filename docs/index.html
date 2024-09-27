@@ -57,48 +57,6 @@
 
 import {define} from "./_observablehq/client.6fc6ba25.js";
 
-define({id: "192e2e6a", mode: "inline", inputs: ["hrs","display"], body: async (hrs,display) => {
-display(await(
-Math.max(0, hrs).toLocaleString("sv-SE")
-))
-}});
-
-define({id: "38e1575d", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
-display(await(
-Math.max(0, data[0]['percent']).toLocaleString("sv-SE")
-))
-}});
-
-define({id: "169b7d75", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
-display(await(
-Math.max(0, data[0]['hours']).toLocaleString("sv-SE")
-))
-}});
-
-define({id: "9a8659d5", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
-display(await(
-Math.max(0, data[1]['percent']).toLocaleString("sv-SE")
-))
-}});
-
-define({id: "1514e89a", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
-display(await(
-Math.max(0, data[1]['hours']).toLocaleString("sv-SE")
-))
-}});
-
-define({id: "cbbcaefa", mode: "inline", inputs: ["re_allp","display"], body: async (re_allp,display) => {
-display(await(
-Math.max(0, re_allp).toLocaleString("sv-SE")
-))
-}});
-
-define({id: "6a9837cd", mode: "inline", inputs: ["re_allt","display"], body: async (re_allt,display) => {
-display(await(
-Math.max(0, re_allt).toLocaleString("sv-SE")
-))
-}});
-
 define({id: "a77b92ca", inputs: ["view","Inputs"], outputs: ["hrs_base"], body: (view,Inputs) => {
 const hrs_base = view(Inputs.radio(new Map([
     ['<= 29', 1756],
@@ -262,29 +220,52 @@ toggleDivVisibility('research', tott)
 
 }});
 
+define({id: "192e2e6a", mode: "inline", inputs: ["hrs","display"], body: async (hrs,display) => {
+display(await(
+Math.max(0, hrs).toLocaleString("sv-SE")
+))
+}});
+
+define({id: "38e1575d", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
+display(await(
+Math.max(0, data[0]['percent']).toLocaleString("sv-SE")
+))
+}});
+
+define({id: "169b7d75", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
+display(await(
+Math.max(0, data[0]['hours']).toLocaleString("sv-SE")
+))
+}});
+
+define({id: "9a8659d5", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
+display(await(
+Math.max(0, data[1]['percent']).toLocaleString("sv-SE")
+))
+}});
+
+define({id: "1514e89a", mode: "inline", inputs: ["data","display"], body: async (data,display) => {
+display(await(
+Math.max(0, data[1]['hours']).toLocaleString("sv-SE")
+))
+}});
+
+define({id: "cbbcaefa", mode: "inline", inputs: ["re_allp","display"], body: async (re_allp,display) => {
+display(await(
+Math.max(0, re_allp).toLocaleString("sv-SE")
+))
+}});
+
+define({id: "6a9837cd", mode: "inline", inputs: ["re_allt","display"], body: async (re_allt,display) => {
+display(await(
+Math.max(0, re_allt).toLocaleString("sv-SE")
+))
+}});
+
 </script>
 <div id="observablehq-center">
 <main id="observablehq-main" class="observablehq">
 <h2>Personal Counter - Beta</h2>
-<div class="grid grid-cols-4 gap-4">
-  </div>
-  <div class="card" id="hrs">
-    <h2>Timmar</h2>
-    <span class="big"><observablehq-loading></observablehq-loading><!--:192e2e6a:--></span>
-  </div>
-  <div class="card" id="other">
-    <h2>Övrig tid (<observablehq-loading></observablehq-loading><!--:38e1575d:--> %)</h2>
-    <span class="big"><observablehq-loading></observablehq-loading><!--:169b7d75:--></span>
-  </div>
-  <div class="card" id="teach">
-    <h2>Undervisning (<observablehq-loading></observablehq-loading><!--:9a8659d5:--> %)</h2>
-    <span class="big"><observablehq-loading></observablehq-loading><!--:1514e89a:--></span>
-  </div>
-  <div class="card" id="research">
-    <h2>Forskning och forskningsrelaterad verksamhet* (<observablehq-loading></observablehq-loading><!--:cbbcaefa:--> %)</h2>
-    <span class="big"><observablehq-loading></observablehq-loading><!--:6a9837cd:--></span>
-  </div>
-
 <h5>1. Hur gammal är du?</h5>
 <div class="observablehq observablehq--block"><!--:a77b92ca:--></div>
 <h5>2. Vilken anställningsform har du?</h5>
@@ -351,6 +332,25 @@ toggleDivVisibility('research', tott)
 <div class="observablehq observablehq--block"><!--:e3345720:--></div>
 <div class="observablehq observablehq--block"><!--:7208b3df:--></div>
 <p>* För adjunkter avses kompetensutveckling</p>
+<div class="grid grid-cols-4 gap-4">
+  </div>
+  <div class="card" id="hrs">
+    <h2>Timmar</h2>
+    <span class="big"><observablehq-loading></observablehq-loading><!--:192e2e6a:--></span>
+  </div>
+  <div class="card" id="other">
+    <h2>Övrig tid (<observablehq-loading></observablehq-loading><!--:38e1575d:--> %)</h2>
+    <span class="big"><observablehq-loading></observablehq-loading><!--:169b7d75:--></span>
+  </div>
+  <div class="card" id="teach">
+    <h2>Undervisning (<observablehq-loading></observablehq-loading><!--:9a8659d5:--> %)</h2>
+    <span class="big"><observablehq-loading></observablehq-loading><!--:1514e89a:--></span>
+  </div>
+  <div class="card" id="research">
+    <h2>Forskning och forskningsrelaterad verksamhet* (<observablehq-loading></observablehq-loading><!--:cbbcaefa:--> %)</h2>
+    <span class="big"><observablehq-loading></observablehq-loading><!--:6a9837cd:--></span>
+  </div>
+
 </main>
 <footer id="observablehq-footer">
 <div><div style="float: left">© 2024 Mathias Johansson</div><div style="float: right"> Built with observable</div><div style="margin: 0 auto; width: 100px;"><a href="https://github.com/mathjoha/Kultur_Personalplaneraren/issues/new" target="_blank" rel="noopener noreferrer">Report Issue</a><a></a></div></div>
