@@ -4,11 +4,7 @@ toc: false
 
 <h2>Personal Counter - Beta</h2>
 
-
-
-
 <h5>1. Hur gammal är du?</h5>
-
 
 ```js
 const hrs_base = view(Inputs.radio(new Map([
