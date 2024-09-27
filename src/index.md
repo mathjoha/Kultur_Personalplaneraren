@@ -43,6 +43,7 @@ const max_research_percent = 1 - title['base'] - 0.2 - title['dev']
 ```js
 const deltid = view(Inputs.range([5, 100],
   {
+    'step': 1,
       disabled : title == notitle,
     width: 500,
     value: 100
