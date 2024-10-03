@@ -84,11 +84,13 @@ const  financed = bidrag / 100
 
 ```js
 const used = financed + title['base']
-const unused = 1-used-title['dev']
+
+const research_reserve = 0.1 - title['base']
+const unused = 1-used-title['dev'] - research_reserve
 
 
 const teaching = Math.max(0.2, unused * title['teaching'])
-const other_research = unused - teaching
+const other_research = unused - teaching + research_reserve
 const all_research = other_research + financed
 const total = teaching + title['base'] + all_research + title['dev']
 
@@ -102,7 +104,6 @@ const totp = Math.round(total * 100)
 const re_allt = Math.round(all_research * hrs)
 
 const tott = Math.round(total * hrs)
-
 ```
 
 
@@ -136,6 +137,8 @@ data.forEach(calculateHours)
 </div>
 
 <h4>  Summering i procent och timmar </h4>
+
+
 
 ```js
 display(
