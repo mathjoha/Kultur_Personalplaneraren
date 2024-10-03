@@ -2,6 +2,11 @@
 toc: false
 ---
 
+```js
+const version =  'v1.0.0'
+```
+
+<div style="float: right" >${version}</div>
 <h2>Beräkningsverktyg</h2>
 
 <!-- Text? -->

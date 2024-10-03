@@ -57,6 +57,17 @@
 
 import {define} from "./_observablehq/client.6fc6ba25.js";
 
+define({id: "4149fbd0", outputs: ["version"], body: () => {
+const version =  'v1.0.0'
+return {version};
+}});
+
+define({id: "5ca4f385", mode: "inline", inputs: ["version","display"], body: async (version,display) => {
+display(await(
+version
+))
+}});
+
 define({id: "a77b92ca", inputs: ["view","Inputs"], outputs: ["hrs_base"], body: (view,Inputs) => {
 const hrs_base = view(Inputs.radio(new Map([
     ['<= 29', 1756],
@@ -266,6 +277,8 @@ Math.max(0, re_allt).toLocaleString("sv-SE")
 </script>
 <div id="observablehq-center">
 <main id="observablehq-main" class="observablehq">
+<div class="observablehq observablehq--block"><!--:4149fbd0:--></div>
+<div style="float: right"><observablehq-loading></observablehq-loading><!--:5ca4f385:--></div>
 <h2>Beräkningsverktyg</h2>
 <!-- Text? -->
 <h5>1. Hur gammal är du?</h5>
