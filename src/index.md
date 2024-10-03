@@ -110,7 +110,7 @@ const tott = Math.round(total * hrs)
 var data = [
   {'name': '1. Övrig tid ', 'percent': basep},
   {'name': '2. Undervisning', 'percent': teachp},
-  {'name': '3. Forskning - Fakultetsfinansierad', 'percent': re_othp + title['dev']*100},
+  {'name': '3. Forskning - Fakultetsfinansierad*', 'percent': re_othp + title['dev']*100},
   {'name': '4. Forskning - Bidragsfinansierad', 'percent': bidrag},
 ]
 
@@ -139,7 +139,7 @@ data.forEach(calculateHours)
 
 ```js
 display(
-  `\nÖvrig tid:  ${data[0]['percent']}% (${data[0]['hours']} h)\nTeaching: ${data[1]['percent']}% (${data[1]['hours']} h)\nResearch: ${re_allp}% (${re_allt} h)\n       bidrag: ${data[3]['percent']}% (${data[3]['hours']} h)\n       faculty: ${data[2]['percent']}% (${data[2]['hours']} h)\n\nTotal: ${totp}% (${tott} h)`
+  `\nÖvrig tid:  ${data[0]['percent']}% (${data[0]['hours']} h)\nTeaching: ${data[1]['percent']}% (${data[1]['hours']} h)\nResearch: ${re_allp}% (${re_allt} h)\n       bidrag: ${data[3]['percent']}% (${data[3]['hours']} h)\n       faculty*: ${data[2]['percent']}% (${data[2]['hours']} h)\n\nTotal: ${totp}% (${tott} h)`
 )
 ```
 
