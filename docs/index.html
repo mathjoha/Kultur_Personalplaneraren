@@ -156,10 +156,9 @@ const tott = Math.round(total * hrs)
 return {used,unused,teaching,other_research,all_research,total,teachp,basep,re_allp,re_finp,re_othp,totp,re_allt,tott};
 }});
 
-define({id: "de3137b3", inputs: ["basep","teachp","re_othp","title","bidrag","hrs"], outputs: ["data","calculateHours"], body: (basep,teachp,re_othp,title,bidrag,hrs) => {
+define({id: "4acc4a87", inputs: ["basep","teachp","re_othp","title","bidrag","hrs"], outputs: ["data","calculateHours"], body: (basep,teachp,re_othp,title,bidrag,hrs) => {
 var data = [
-  {'name': '0. Övrig tid ', 'percent': basep},
-  // {'name': '1. kompetensutveckling', 'percent': title['dev']*100},
+  {'name': '1. Övrig tid ', 'percent': basep},
   {'name': '2. Undervisning', 'percent': teachp},
   {'name': '3. Forskning - Fakultetsfinansierad', 'percent': re_othp + title['dev']*100},
   {'name': '4. Forskning - Bidragsfinansierad', 'percent': bidrag},
@@ -283,7 +282,7 @@ Math.max(0, re_allt).toLocaleString("sv-SE")
 <div class="observablehq observablehq--block"><!--:c60932db:--></div>
 <div class="observablehq observablehq--block"><!--:6e75528a:--></div>
 <div class="observablehq observablehq--block"><!--:b69f5cc3:--></div>
-<div class="observablehq observablehq--block"><!--:de3137b3:--></div>
+<div class="observablehq observablehq--block"><!--:4acc4a87:--></div>
 <div class="grid grid-cols-2">
   <div class="card"><observablehq-loading></observablehq-loading><!--:43714d95:--></div>
 </div>

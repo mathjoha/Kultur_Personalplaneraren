@@ -108,8 +108,7 @@ const tott = Math.round(total * hrs)
 
 ```js
 var data = [
-  {'name': '0. Övrig tid ', 'percent': basep},
-  // {'name': '1. kompetensutveckling', 'percent': title['dev']*100},
+  {'name': '1. Övrig tid ', 'percent': basep},
   {'name': '2. Undervisning', 'percent': teachp},
   {'name': '3. Forskning - Fakultetsfinansierad', 'percent': re_othp + title['dev']*100},
   {'name': '4. Forskning - Bidragsfinansierad', 'percent': bidrag},
