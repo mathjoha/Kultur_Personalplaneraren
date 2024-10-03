@@ -135,7 +135,7 @@ data.forEach(calculateHours)
   }</div>
 </div>
 
-<h4> WIP - text summary </h4>
+<h4>  Summering i procent och timmar </h4>
 
 ```js
 display(
