@@ -139,7 +139,7 @@ data.forEach(calculateHours)
 
 ```js
 display(
-  `\nÖvrig tid:  ${data[0]['percent']}% (${data[0]['hours']} h)\nTeaching: ${data[1]['percent']}% (${data[1]['hours']} h)\nResearch: ${re_allp}% (${re_allt} h)\n       bidrag: ${data[3]['percent']}% (${data[3]['hours']} h)\n       faculty*: ${data[2]['percent']}% (${data[2]['hours']} h)\n\nTotal: ${totp}% (${tott} h)`
+  `\nÖvrig tid:    ${data[0]['percent']}% (${data[0]['hours']} h)\nUndervisning: ${data[1]['percent']}% (${data[1]['hours']} h)\nForskning:    ${re_allp}% (${re_allt} h)\n    Varav bidrag:    ${data[3]['percent']}% (${data[3]['hours']} h)\n    Varav Fakultet*: ${data[2]['percent']}% (${data[2]['hours']} h)\n\nTotal: ${totp}% (${tott} h)`
 )
 ```
 
