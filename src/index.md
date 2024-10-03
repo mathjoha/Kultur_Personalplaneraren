@@ -2,7 +2,14 @@
 toc: false
 ---
 
-<h2>Personal Counter - Beta</h2>
+```js
+const version =  'v1.0.0'
+```
+
+<div style="float: right" >${version}</div>
+<h2>Beräkningsverktyg</h2>
+
+<!-- Text? -->
 
 <h5>1. Hur gammal är du?</h5>
 
@@ -82,11 +89,13 @@ const  financed = bidrag / 100
 
 ```js
 const used = financed + title['base']
-const unused = 1-used-title['dev']
+
+const research_reserve = 0.1 - title['base']
+const unused = 1-used-title['dev'] - research_reserve
 
 
 const teaching = Math.max(0.2, unused * title['teaching'])
-const other_research = unused - teaching
+const other_research = unused - teaching + research_reserve
 const all_research = other_research + financed
 const total = teaching + title['base'] + all_research + title['dev']
 
@@ -100,16 +109,14 @@ const totp = Math.round(total * 100)
 const re_allt = Math.round(all_research * hrs)
 
 const tott = Math.round(total * hrs)
-
 ```
 
 
 ```js
 var data = [
-  {'name': '0. Övrig tid ', 'percent': basep},
-  // {'name': '1. kompetensutveckling', 'percent': title['dev']*100},
+  {'name': '1. Övrig tid ', 'percent': basep},
   {'name': '2. Undervisning', 'percent': teachp},
-  {'name': '3. Forskning - Fakultetsfinansierad', 'percent': re_othp + title['dev']*100},
+  {'name': '3. Forskning - Fakultetsfinansierad*', 'percent': re_othp + title['dev']*100},
   {'name': '4. Forskning - Bidragsfinansierad', 'percent': bidrag},
 ]
 
@@ -134,11 +141,13 @@ data.forEach(calculateHours)
   }</div>
 </div>
 
-<h4> WIP - text summary </h4>
+<h4>  Summering i procent och timmar </h4>
+
+
 
 ```js
 display(
-  `\nÖvrig tid:  ${data[0]['percent']}% (${data[0]['hours']} h)\nTeaching: ${data[1]['percent']}% (${data[1]['hours']} h)\nResearch: ${re_allp}% (${re_allt} h)\n       bidrag: ${data[3]['percent']}% (${data[3]['hours']} h)\n       faculty: ${data[2]['percent']}% (${data[2]['hours']} h)\n\nTotal: ${totp}% (${tott} h)`
+  `\nÖvrig tid:    ${data[0]['percent']}% (${data[0]['hours']} h)\nUndervisning: ${data[1]['percent']}% (${data[1]['hours']} h)\nForskning:    ${re_allp}% (${re_allt} h)\n    Varav bidrag:    ${data[3]['percent']}% (${data[3]['hours']} h)\n    Varav Fakultet*: ${data[2]['percent']}% (${data[2]['hours']} h)\n\nTotal: ${totp}% (${tott} h)`
 )
 ```
 
