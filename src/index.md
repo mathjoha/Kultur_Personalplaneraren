@@ -31,7 +31,7 @@ var seltitle = view(Inputs.radio(new Map([
   ['Lektor med docentkompetens', {'base': 0.1, "research" : 0.35, "teaching": 0.65, "dev": 0}],
   ['Professor', {'base': 0.05, "research" : 0.51, "teaching": 0.49, "dev": 0}],
   ['Biträdande Lektor', {'base': 0.05, "research" : 0.51, "teaching": 0.49, "dev": 0}],
-  ['Adjunkt', {'base': 0.1, "research" : 0, "teaching": 0.80, "dev": 0.20}],
+  ['Adjunkt', {'base': 0.1, "research" : 0, "teaching": 0.90, "dev": 0.1}],
 ]),
 {disabled : hrs_base == null, width: 500
 }))
@@ -43,7 +43,7 @@ const title = seltitle != null ? seltitle  : notitle
 ```
 
 ```js
-const max_research_percent = 1 - title['base'] - 0.2 - title['dev']
+const max_research_percent = 1 - title['base'] - 0.2
 ```
 <h5>3. Hur stor omfattning har din anställning?</h5>
 
@@ -60,7 +60,7 @@ const deltid = view(Inputs.range([5, 100],
 <h5>4. Hur stor andel bidragsfinansierad forskning har du?</h5>
 
 ```js
-const bidrag = view(Inputs.range([0, max_research_percent * 100],
+const bidrag = view(Inputs.range([0, Math.round(max_research_percent * 100)],
   {
     'step': 1,
     disabled : title == notitle,
@@ -90,19 +90,21 @@ const  financed = bidrag / 100
 ```js
 const used = financed + title['base']
 
-const research_reserve = 0.1 - title['base']
-const unused = 1-used-title['dev'] - research_reserve
+const research_reserve = title['base'] == 0.05 ? 0.05 : 0
+const unused = 1 - used - research_reserve
 
 
-const teaching = Math.max(0.2, unused * title['teaching'])
+const teaching = Math.min(
+    Math.max(0.2, unused * title['teaching']),
+    1 - title['base'] - title['dev'] - title['research'])
 const other_research = unused - teaching + research_reserve
 const all_research = other_research + financed
-const total = teaching + title['base'] + all_research + title['dev']
+const total = teaching + title['base'] + all_research
 
 const teachp = Math.round(teaching * 100)
 const basep = Math.round(title['base'] * 100)
 const re_allp = Math.round(all_research * 100)
-const re_finp = Math.round(financed *100)
+const re_finp = Math.round(financed * 100)
 const re_othp = Math.round(other_research * 100)
 const totp = Math.round(total * 100)
 
@@ -116,7 +118,7 @@ const tott = Math.round(total * hrs)
 var data = [
   {'name': '1. Övrig tid ', 'percent': basep},
   {'name': '2. Undervisning', 'percent': teachp},
-  {'name': '3. Forskning - Fakultetsfinansierad*', 'percent': re_othp + title['dev']*100},
+  {'name': '3. Forskning - Fakultetsfinansierad*', 'percent': re_othp},
   {'name': '4. Forskning - Bidragsfinansierad', 'percent': bidrag},
 ]
 
@@ -217,14 +219,13 @@ toggleDivVisibility('hrs', hrs)
 
 toggleDivVisibility('other', data[0]['hours'])
 
-toggleDivVisibility('teach', data[2]['hours'])
+toggleDivVisibility('teach', data[1]['hours'])
 
 toggleDivVisibility('research', tott)
 
 ```
 
 
-\* För adjunkter avses kompetensutveckling
 
 <div class="grid grid-cols-4 gap-4">
   </div>
@@ -244,11 +245,12 @@ toggleDivVisibility('research', tott)
     <span class="big">${Math.max(0, data[1]['hours']).toLocaleString("sv-SE")}</span>
   </div>
 
-
   <div class="card" id=research>
-    <h2>Forskning och forskningsrelaterad verksamhet* (${Math.max(0, re_allp).toLocaleString("sv-SE")} %)</h2>
+    <h2>Forskning* (${Math.max(0, re_allp).toLocaleString("sv-SE")} %)</h2>
     <span class="big">${Math.max(0, re_allt).toLocaleString("sv-SE")}</span>
   </div>
 
 
 </div>
+
+\* För adjunkter avses kompetensutveckling
