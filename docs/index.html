@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.12.0">
 <title>Personal Counter</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
-<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.e68849dc.css">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.3268c726.css">
 <link rel="preload" as="style" href="./_observablehq/stdlib/inputs.ea9fd553.css">
-<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
-<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.e68849dc.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.3268c726.css">
 <link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.ea9fd553.css">
-<link rel="modulepreload" href="./_observablehq/client.6fc6ba25.js">
-<link rel="modulepreload" href="./_observablehq/runtime.56d81cb2.js">
-<link rel="modulepreload" href="./_observablehq/stdlib.831f6193.js">
-<link rel="modulepreload" href="./_observablehq/stdlib/inputs.f43fa668.js">
+<link rel="modulepreload" href="./_observablehq/client.e7afcba6.js">
+<link rel="modulepreload" href="./_observablehq/runtime.8eb97cbb.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.8048ec16.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.9d076414.js">
 <link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.16/e828d8c8.js">
 <link rel="modulepreload" href="./_npm/htl@0.3.1/063eb405.js">
 <link rel="modulepreload" href="./_npm/isoformat@0.2.1/c68fbd73.js">
@@ -55,7 +56,7 @@
 <link rel="icon" href="./_file/observable.1af93621.png" type="image/png" sizes="32x32">
 <script type="module">
 
-import {define} from "./_observablehq/client.6fc6ba25.js";
+import {define} from "./_observablehq/client.e7afcba6.js";
 
 define({id: "4149fbd0", outputs: ["version"], body: () => {
 const version =  'v1.0.0'
@@ -78,13 +79,13 @@ const hrs_base = view(Inputs.radio(new Map([
 return {hrs_base};
 }});
 
-define({id: "5cff9d03", inputs: ["view","Inputs","hrs_base"], outputs: ["seltitle"], body: (view,Inputs,hrs_base) => {
+define({id: "d1b1e970", inputs: ["view","Inputs","hrs_base"], outputs: ["seltitle"], body: (view,Inputs,hrs_base) => {
 var seltitle = view(Inputs.radio(new Map([
   ['Lektor', {'base':0.1, "research": 0.3, "teaching": 0.7, "dev": 0}],
   ['Lektor med docentkompetens', {'base': 0.1, "research" : 0.35, "teaching": 0.65, "dev": 0}],
   ['Professor', {'base': 0.05, "research" : 0.51, "teaching": 0.49, "dev": 0}],
   ['Biträdande Lektor', {'base': 0.05, "research" : 0.51, "teaching": 0.49, "dev": 0}],
-  ['Adjunkt', {'base': 0.1, "research" : 0, "teaching": 0.80, "dev": 0.20}],
+  ['Adjunkt', {'base': 0.1, "research" : 0, "teaching": 0.90, "dev": 0.1}],
 ]),
 {disabled : hrs_base == null, width: 500
 }))
@@ -97,8 +98,8 @@ const title = seltitle != null ? seltitle  : notitle
 return {notitle,title};
 }});
 
-define({id: "2b53973e", inputs: ["title"], outputs: ["max_research_percent"], body: (title) => {
-const max_research_percent = 1 - title['base'] - 0.2 - title['dev']
+define({id: "16f00750", inputs: ["title"], outputs: ["max_research_percent"], body: (title) => {
+const max_research_percent = 1 - title['base'] - 0.2
 return {max_research_percent};
 }});
 
@@ -113,8 +114,8 @@ const deltid = view(Inputs.range([5, 100],
 return {deltid};
 }});
 
-define({id: "e13965cc", inputs: ["view","Inputs","max_research_percent","title","notitle"], outputs: ["bidrag"], body: (view,Inputs,max_research_percent,title,notitle) => {
-const bidrag = view(Inputs.range([0, max_research_percent * 100],
+define({id: "8728c716", inputs: ["view","Inputs","max_research_percent","title","notitle"], outputs: ["bidrag"], body: (view,Inputs,max_research_percent,title,notitle) => {
+const bidrag = view(Inputs.range([0, Math.round(max_research_percent * 100)],
   {
     'step': 1,
     disabled : title == notitle,
@@ -143,22 +144,24 @@ const  financed = bidrag / 100
 return {financed};
 }});
 
-define({id: "6d1c50dd", inputs: ["financed","title","hrs"], outputs: ["used","research_reserve","unused","teaching","other_research","all_research","total","teachp","basep","re_allp","re_finp","re_othp","totp","re_allt","tott"], body: (financed,title,hrs) => {
+define({id: "b4e5f40d", inputs: ["financed","title","hrs"], outputs: ["used","research_reserve","unused","teaching","other_research","all_research","total","teachp","basep","re_allp","re_finp","re_othp","totp","re_allt","tott"], body: (financed,title,hrs) => {
 const used = financed + title['base']
 
-const research_reserve = 0.1 - title['base']
-const unused = 1-used-title['dev'] - research_reserve
+const research_reserve = title['base'] == 0.05 ? 0.05 : 0
+const unused = 1 - used - research_reserve
 
 
-const teaching = Math.max(0.2, unused * title['teaching'])
+const teaching = Math.min(
+    Math.max(0.2, unused * title['teaching']),
+    1 - title['base'] - title['dev'] - title['research'])
 const other_research = unused - teaching + research_reserve
 const all_research = other_research + financed
-const total = teaching + title['base'] + all_research + title['dev']
+const total = teaching + title['base'] + all_research
 
 const teachp = Math.round(teaching * 100)
 const basep = Math.round(title['base'] * 100)
 const re_allp = Math.round(all_research * 100)
-const re_finp = Math.round(financed *100)
+const re_finp = Math.round(financed * 100)
 const re_othp = Math.round(other_research * 100)
 const totp = Math.round(total * 100)
 
@@ -168,11 +171,11 @@ const tott = Math.round(total * hrs)
 return {used,research_reserve,unused,teaching,other_research,all_research,total,teachp,basep,re_allp,re_finp,re_othp,totp,re_allt,tott};
 }});
 
-define({id: "c1c5c0ea", inputs: ["basep","teachp","re_othp","title","bidrag","hrs"], outputs: ["data","calculateHours"], body: (basep,teachp,re_othp,title,bidrag,hrs) => {
+define({id: "1decc239", inputs: ["basep","teachp","re_othp","bidrag","hrs"], outputs: ["data","calculateHours"], body: (basep,teachp,re_othp,bidrag,hrs) => {
 var data = [
   {'name': '1. Övrig tid ', 'percent': basep},
   {'name': '2. Undervisning', 'percent': teachp},
-  {'name': '3. Forskning - Fakultetsfinansierad*', 'percent': re_othp + title['dev']*100},
+  {'name': '3. Forskning - Fakultetsfinansierad*', 'percent': re_othp},
   {'name': '4. Forskning - Bidragsfinansierad', 'percent': bidrag},
 ]
 
@@ -219,14 +222,14 @@ function toggleDivVisibility(div_id, display_var) {
 return {toggleDivVisibility};
 }});
 
-define({id: "7208b3df", inputs: ["toggleDivVisibility","hrs","data","tott"], body: (toggleDivVisibility,hrs,data,tott) => {
+define({id: "bddfab69", inputs: ["toggleDivVisibility","hrs","data","tott"], body: (toggleDivVisibility,hrs,data,tott) => {
 //| echo: false
 
 toggleDivVisibility('hrs', hrs)
 
 toggleDivVisibility('other', data[0]['hours'])
 
-toggleDivVisibility('teach', data[2]['hours'])
+toggleDivVisibility('teach', data[1]['hours'])
 
 toggleDivVisibility('research', tott)
 
@@ -284,19 +287,19 @@ Math.max(0, re_allt).toLocaleString("sv-SE")
 <h5>1. Hur gammal är du?</h5>
 <div class="observablehq observablehq--block"><!--:a77b92ca:--></div>
 <h5>2. Vilken anställningsform har du?</h5>
-<div class="observablehq observablehq--block"><!--:5cff9d03:--></div>
+<div class="observablehq observablehq--block"><!--:d1b1e970:--></div>
 <div class="observablehq observablehq--block"><!--:655b8f3e:--></div>
-<div class="observablehq observablehq--block"><!--:2b53973e:--></div>
+<div class="observablehq observablehq--block"><!--:16f00750:--></div>
 <h5>3. Hur stor omfattning har din anställning?</h5>
 <div class="observablehq observablehq--block"><!--:5cf4415a:--></div>
 <h5>4. Hur stor andel bidragsfinansierad forskning har du?</h5>
-<div class="observablehq observablehq--block"><!--:e13965cc:--></div>
+<div class="observablehq observablehq--block"><!--:8728c716:--></div>
 <div class="observablehq observablehq--block"><!--:1c397390:--></div>
 <div class="observablehq observablehq--block"><!--:89af9455:--></div>
 <div class="observablehq observablehq--block"><!--:c60932db:--></div>
 <div class="observablehq observablehq--block"><!--:6e75528a:--></div>
-<div class="observablehq observablehq--block"><!--:6d1c50dd:--></div>
-<div class="observablehq observablehq--block"><!--:c1c5c0ea:--></div>
+<div class="observablehq observablehq--block"><!--:b4e5f40d:--></div>
+<div class="observablehq observablehq--block"><!--:1decc239:--></div>
 <div class="grid grid-cols-2">
   <div class="card"><observablehq-loading></observablehq-loading><!--:43714d95:--></div>
 </div>
@@ -345,8 +348,7 @@ Math.max(0, re_allt).toLocaleString("sv-SE")
 
 </style>
 <div class="observablehq observablehq--block"><!--:e3345720:--></div>
-<div class="observablehq observablehq--block"><!--:7208b3df:--></div>
-<p>* För adjunkter avses kompetensutveckling</p>
+<div class="observablehq observablehq--block"><!--:bddfab69:--></div>
 <div class="grid grid-cols-4 gap-4">
   </div>
   <div class="card" id="hrs">
@@ -362,10 +364,11 @@ Math.max(0, re_allt).toLocaleString("sv-SE")
     <span class="big"><observablehq-loading></observablehq-loading><!--:1514e89a:--></span>
   </div>
   <div class="card" id="research">
-    <h2>Forskning och forskningsrelaterad verksamhet* (<observablehq-loading></observablehq-loading><!--:cbbcaefa:--> %)</h2>
+    <h2>Forskning* (<observablehq-loading></observablehq-loading><!--:cbbcaefa:--> %)</h2>
     <span class="big"><observablehq-loading></observablehq-loading><!--:6a9837cd:--></span>
   </div>
 
+<p>* För adjunkter avses kompetensutveckling</p>
 </main>
 <footer id="observablehq-footer">
 <div><div style="float: left">© 2024 Mathias Johansson</div><div style="float: right"> Built with observable</div><div style="margin: 0 auto; width: 100px;"><a href="https://github.com/mathjoha/Kultur_Personalplaneraren/issues/new" target="_blank" rel="noopener noreferrer">Report Issue</a><a></a></div></div>
