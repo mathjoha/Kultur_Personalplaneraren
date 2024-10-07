@@ -3,7 +3,7 @@ toc: false
 ---
 
 ```js
-const version =  'v1.0.0'
+const version =  'v1.0.1'
 ```
 
 <div style="float: right" >${version}</div>
