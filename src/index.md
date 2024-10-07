@@ -118,8 +118,8 @@ const tott = Math.round(total * hrs)
 var data = [
   {'name': '1. Övrig tid ', 'percent': basep},
   {'name': '2. Undervisning', 'percent': teachp},
-  {'name': '3. Forskning - Fakultetsfinansierad*', 'percent': re_othp},
-  {'name': '4. Forskning - Bidragsfinansierad', 'percent': bidrag},
+  {'name': '3. Forskning - Fakultet*', 'percent': re_othp},
+  {'name': '4. Forskning - Bidrag', 'percent': bidrag},
 ]
 
 function calculateHours(item, index, arr) {
@@ -130,21 +130,22 @@ data.forEach(calculateHours)
 
 ```
 
-<div class="grid grid-cols-2">
+<div class="grid grid-cols-1">
   <div class="card">${
     resize((width) => Plot.plot({
-      width,
-      height: width/10,
+      height: Math.max(100, width/10),
+      width: width,
       color: { legend: true, scheme: "Dark2"},
       marks: [
-        Plot.barX(data, {x: 'percent', fill: "name"}),
+        Plot.barX(data, {
+          x: 'percent', fill: "name"}),
       ]
     }))
   }</div>
 </div>
 
-<h4>  Summering i procent och timmar </h4>
 
+<h4>  Summering i procent och timmar </h4>
 
 
 ```js

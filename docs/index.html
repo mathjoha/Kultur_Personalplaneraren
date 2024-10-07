@@ -171,12 +171,12 @@ const tott = Math.round(total * hrs)
 return {used,research_reserve,unused,teaching,other_research,all_research,total,teachp,basep,re_allp,re_finp,re_othp,totp,re_allt,tott};
 }});
 
-define({id: "1decc239", inputs: ["basep","teachp","re_othp","bidrag","hrs"], outputs: ["data","calculateHours"], body: (basep,teachp,re_othp,bidrag,hrs) => {
+define({id: "89f54fa2", inputs: ["basep","teachp","re_othp","bidrag","hrs"], outputs: ["data","calculateHours"], body: (basep,teachp,re_othp,bidrag,hrs) => {
 var data = [
   {'name': '1. Övrig tid ', 'percent': basep},
   {'name': '2. Undervisning', 'percent': teachp},
-  {'name': '3. Forskning - Fakultetsfinansierad*', 'percent': re_othp},
-  {'name': '4. Forskning - Bidragsfinansierad', 'percent': bidrag},
+  {'name': '3. Forskning - Fakultet*', 'percent': re_othp},
+  {'name': '4. Forskning - Bidrag', 'percent': bidrag},
 ]
 
 function calculateHours(item, index, arr) {
@@ -188,14 +188,15 @@ data.forEach(calculateHours)
 return {data,calculateHours};
 }});
 
-define({id: "43714d95", mode: "inline", inputs: ["resize","Plot","data","display"], body: async (resize,Plot,data,display) => {
+define({id: "e8aaa3a3", mode: "inline", inputs: ["resize","Plot","data","display"], body: async (resize,Plot,data,display) => {
 display(await(
     resize((width) => Plot.plot({
-      width,
-      height: width/10,
+      height: Math.max(100, width/10),
+      width: width,
       color: { legend: true, scheme: "Dark2"},
       marks: [
-        Plot.barX(data, {x: 'percent', fill: "name"}),
+        Plot.barX(data, {
+          x: 'percent', fill: "name"}),
       ]
     }))
   
@@ -299,9 +300,9 @@ Math.max(0, re_allt).toLocaleString("sv-SE")
 <div class="observablehq observablehq--block"><!--:c60932db:--></div>
 <div class="observablehq observablehq--block"><!--:6e75528a:--></div>
 <div class="observablehq observablehq--block"><!--:b4e5f40d:--></div>
-<div class="observablehq observablehq--block"><!--:1decc239:--></div>
-<div class="grid grid-cols-2">
-  <div class="card"><observablehq-loading></observablehq-loading><!--:43714d95:--></div>
+<div class="observablehq observablehq--block"><!--:89f54fa2:--></div>
+<div class="grid grid-cols-1">
+  <div class="card"><observablehq-loading></observablehq-loading><!--:e8aaa3a3:--></div>
 </div>
 <h4>  Summering i procent och timmar </h4>
 <div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:755820dc:--></div>
