@@ -24,6 +24,6 @@ export default {
   // typographer: false, // smart quotes and other typographic improvements
   // cleanUrls: true, // drop .html from URLs
 
-  footer: '<div style="float: left">© 2024 Mathias Johansson</div><div style="float: right" > Built with observable</div><div style="margin: 0 auto; width: 100px;"><a href="https://github.com/mathjoha/Kultur_Personalplaneraren/issues/new">Report Issue<a></div>'
+  footer: '<div style="float: left">© 2024 Mathias Johansson & Institutionen för kulturvetenskaper, Lunds universitet f</div><div style="float: right" > Built with observable</div><div style="margin: 0 auto; width: 100px;"><a href="https://github.com/mathjoha/Kultur_Personalplaneraren/issues/new">Report Issue<a></div>'
 
 };
