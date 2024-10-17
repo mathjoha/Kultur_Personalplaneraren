@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="generator" content="Observable Framework v1.12.0">
 <title>Personal Counter</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
-<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.3268c726.css">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.e68849dc.css">
 <link rel="preload" as="style" href="./_observablehq/stdlib/inputs.ea9fd553.css">
-<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
-<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.3268c726.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.e68849dc.css">
 <link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.ea9fd553.css">
-<link rel="modulepreload" href="./_observablehq/client.e7afcba6.js">
-<link rel="modulepreload" href="./_observablehq/runtime.8eb97cbb.js">
-<link rel="modulepreload" href="./_observablehq/stdlib.8048ec16.js">
-<link rel="modulepreload" href="./_observablehq/stdlib/inputs.9d076414.js">
+<link rel="modulepreload" href="./_observablehq/client.cb30db6b.js">
+<link rel="modulepreload" href="./_observablehq/runtime.b5b3c722.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.53778d8d.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.28280c36.js">
 <link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.16/e828d8c8.js">
 <link rel="modulepreload" href="./_npm/htl@0.3.1/063eb405.js">
 <link rel="modulepreload" href="./_npm/isoformat@0.2.1/c68fbd73.js">
@@ -56,10 +55,10 @@
 <link rel="icon" href="./_file/observable.1af93621.png" type="image/png" sizes="32x32">
 <script type="module">
 
-import {define} from "./_observablehq/client.e7afcba6.js";
+import {define} from "./_observablehq/client.cb30db6b.js";
 
-define({id: "45199d8d", outputs: ["version"], body: () => {
-const version =  'v1.0.2.0'
+define({id: "34b69ffd", outputs: ["version"], body: () => {
+const version =  'v1.0.3'
 return {version};
 }});
 
@@ -79,10 +78,10 @@ const hrs_base = view(Inputs.radio(new Map([
 return {hrs_base};
 }});
 
-define({id: "d1b1e970", inputs: ["view","Inputs","hrs_base"], outputs: ["seltitle"], body: (view,Inputs,hrs_base) => {
+define({id: "852c5c7b", inputs: ["view","Inputs","hrs_base"], outputs: ["seltitle"], body: (view,Inputs,hrs_base) => {
 var seltitle = view(Inputs.radio(new Map([
-  ['Lektor', {'base':0.1, "research": 0.3, "teaching": 0.7, "dev": 0}],
-  ['Lektor med docentkompetens', {'base': 0.1, "research" : 0.35, "teaching": 0.65, "dev": 0}],
+  ['Lektor', {'base':0.1, "research": 0.2, "teaching": 0.8, "dev": 0}],
+  ['Lektor med docentkompetens', {'base': 0.1, "research" : 0.25, "teaching": 0.75, "dev": 0}],
   ['Professor', {'base': 0.05, "research" : 0.51, "teaching": 0.49, "dev": 0}],
   ['Biträdande Lektor', {'base': 0.05, "research" : 0.51, "teaching": 0.49, "dev": 0}],
   ['Adjunkt', {'base': 0.1, "research" : 0, "teaching": 0.90, "dev": 0.1}],
@@ -281,14 +280,14 @@ Math.max(0, re_allt).toLocaleString("sv-SE")
 </script>
 <div id="observablehq-center">
 <main id="observablehq-main" class="observablehq">
-<div class="observablehq observablehq--block"><!--:45199d8d:--></div>
+<div class="observablehq observablehq--block"><!--:34b69ffd:--></div>
 <div style="float: right"><observablehq-loading></observablehq-loading><!--:5ca4f385:--></div>
 <h2>Beräkningsverktyg</h2>
 <!-- Text? -->
 <h5>1. Hur gammal är du?</h5>
 <div class="observablehq observablehq--block"><!--:a77b92ca:--></div>
 <h5>2. Vilken anställningsform har du?</h5>
-<div class="observablehq observablehq--block"><!--:d1b1e970:--></div>
+<div class="observablehq observablehq--block"><!--:852c5c7b:--></div>
 <div class="observablehq observablehq--block"><!--:655b8f3e:--></div>
 <div class="observablehq observablehq--block"><!--:16f00750:--></div>
 <h5>3. Hur stor omfattning har din anställning?</h5>
