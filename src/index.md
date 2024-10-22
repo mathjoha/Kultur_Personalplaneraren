@@ -81,13 +81,12 @@ const hrs = hrs_base * deltid / 100
 const [  basep,
   teachp,
   re_othp,
-] = divideHours(title, hrs, bidrag)
+] = divideHours(title, bidrag)
 ```
 
 
 ```js
 import divideHours from './scripts/main.js'
-
 import addHours  from './scripts/hours.js'
 import buildData from './scripts/matrix.js'
 ```
