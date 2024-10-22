@@ -113,6 +113,11 @@ const re_allt = Math.round(all_research * hrs)
 const tott = Math.round(total * hrs)
 ```
 
+```js
+import addHours  from './scripts/hours.js'
+```
+
+
 
 ```js
 
@@ -129,9 +134,6 @@ data = addHours(data, hrs)
 
 
 
-```js
-import { addHours }  from './scripts/addHours.js'
-```
 
 <div class="grid grid-cols-1">
   <div class="card">${
