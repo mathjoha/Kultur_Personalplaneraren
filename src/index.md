@@ -115,18 +115,20 @@ const tott = Math.round(total * hrs)
 
 ```js
 import addHours  from './scripts/hours.js'
+import buildData from './scripts/matrix.js'
 ```
 
 
 
 ```js
 
-var data = [
-  {'name': '1. Övrig tid ', 'percent': basep},
-  {'name': '2. Undervisning', 'percent': teachp},
-  {'name': '3. Forskning - Fakultet*', 'percent': re_othp},
-  {'name': '4. Forskning - Bidrag', 'percent': bidrag},
-]
+var data = buildData (
+  basep,
+  teachp,
+  re_othp,
+  bidrag,
+
+)
 
 
 data = addHours(data, hrs)
