@@ -76,6 +76,7 @@ const hrs = hrs_base * deltid / 100
 
 ```js
 
+
 function divideHours(title, hrs, bidrag){
   const granted_hours = title['base'] * hrs
   const remaining = hrs * (1 - title['base'])
@@ -116,6 +117,8 @@ const [  basep,
 
 
 ```js
+import divideHours from './scripts/main.js'
+
 import addHours  from './scripts/hours.js'
 import buildData from './scripts/matrix.js'
 ```
