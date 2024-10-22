@@ -101,12 +101,6 @@ const re_allt = Math.round(all_research * hrs)
 
 ```
 
-```js
-
-const total = teaching + title['base'] + all_research
-const totp = Math.round(total * 100)
-const tott = Math.round(total * hrs)
-```
 
 ```js
 import addHours  from './scripts/hours.js'
@@ -126,6 +120,19 @@ var data = buildData (
 data = addHours(data, hrs)
 ```
 
+```js
+display(data)
+```
+
+```js
+const total = teaching + title['base'] + all_research
+const total_alt = data.reduce((a, b) => (a + b.percent), 0) / 100
+
+display(total == total_alt? 'ok' : 'not ok')
+
+const totp = Math.round(total * 100)
+const tott = Math.round(total * hrs)
+```
 
 
 
