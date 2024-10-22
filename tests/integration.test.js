@@ -34,8 +34,8 @@ describe('Test hours division', () => {
         ), 1700);
         assert.equal(data[0].hours, 85)
 
-        assert.equal(data[1].hours, 867)
-        assert.equal(data[2].hours, 748)
+        assert.equal(data[1].hours, 748)
+        assert.equal(data[2].hours, 867)
         assert.equal(data[3].hours, 0)
         assert.equal(data.reduce((a, b) => (a + b.hours), 0), 1700)
     });

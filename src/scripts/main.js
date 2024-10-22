@@ -6,7 +6,7 @@ export default function divideHours(title, bidrag) {
 
     const denominator = title.teaching + title.research
     const other_research_upper = (title.research / denominator) * unused
-    const other_research_lower = Math.min(0, title.research - bidrag_as_ratio)
+    const other_research_lower = Math.max(0, title.research - bidrag_as_ratio)
     const teaching_upper = unused - other_research_lower
 
     const teaching = Math.max(0.2, teaching_upper)
