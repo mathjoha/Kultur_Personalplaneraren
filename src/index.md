@@ -33,8 +33,6 @@ import titles from './scripts/titles.js'
 
 ```
 
-
-
 ```js
 var seltitle = view(Inputs.radio(new Map(titles),
 {disabled : hrs_base == null, width: 500
@@ -42,7 +40,7 @@ var seltitle = view(Inputs.radio(new Map(titles),
 ```
 
 ```js
-const notitle = {'base':0.00, "research": 0, "teaching": 0}
+const notitle = {'base':0.3, "research": 0.3, "teaching": 0.3}
 const title = seltitle != null ? seltitle  : notitle
 ```
 
@@ -127,9 +125,10 @@ const re_allt = data[3].hours + data[2].hours
 
 
 ```js
+if (title !== notitle) {
 display(
   `\nÖvrig tid:    ${data[0]['percent']}% (${data[0]['hours']} h)\nUndervisning: ${data[1]['percent']}% (${data[1]['hours']} h)\nForskning:    ${re_allp}% (${re_allt} h)\n    Varav bidrag:    ${data[3]['percent']}% (${data[3]['hours']} h)\n    Varav Fakultet*: ${data[2]['percent']}% (${data[2]['hours']} h)\n\nTotal: ${totp}% (${tott} h)`
-)
+)}
 ```
 
 

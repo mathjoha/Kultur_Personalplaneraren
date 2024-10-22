@@ -13,8 +13,8 @@ export default function divideHours(title, bidrag) {
 
 
 
-    const teachp = Math.round(teaching * 10000) / 100
     const basep = Math.round(title['base'] * 10000) / 100
+    const teachp = Math.round(teaching * 10000) / 100
     const re_othp = Math.round(other_research * 10000) / 100
 
     const result = [
@@ -22,6 +22,18 @@ export default function divideHours(title, bidrag) {
         teachp,
         re_othp,
     ]
+
+    const sum_research = re_othp + bidrag
+
+    const sum = result.reduce((a, b) => (a + b), 0)
+    if (sum !== 100 - bidrag) {
+        throw new Error(`Sum of results is not 100% [${sum}]`)
+    } if (teachp < 20) {
+        throw new Error(`Teaching is below 20% [${teachp}]`)
+    } if (title.research * 100 > sum_research) {
+        throw new Error(`Research [${sum}] is below its required [${title.research * 100}]%`)
+    }
+
 
     return result
 }
