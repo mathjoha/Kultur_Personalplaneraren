@@ -128,14 +128,9 @@ data = addHours(data, hrs)
 ```
 
 
+
 ```js
-function addHours(data, hrs){
-  function calculateHours(item, index, arr) {
-    arr[index]['hours'] = Math.round(arr[index]['percent'] * hrs/100);
-  }
-  data.forEach(calculateHours)
-  return data
-}
+import { addHours }  from './scripts/addHours.js'
 ```
 
 <div class="grid grid-cols-1">

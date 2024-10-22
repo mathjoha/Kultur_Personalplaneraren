@@ -1,6 +1,8 @@
-const addHours = require('../src/scripts/addHours');
+// const addHours = require('../src/scripts/addHours.js');
+import addHours from '../src/scripts/hours.js';
+import assert from "assert";
 
-test('Calculate 1 row', () => {
+it('Calculate 1 row', () => {
     const data_in = [{ 'percent': 10 }]
     const hrs = 1000
 
@@ -10,12 +12,11 @@ test('Calculate 1 row', () => {
 
     console.log(data_out)
 
-    expect(data_out).toEqual(data_target)
-
+    assert.deepStrictEqual(data_out, data_target)
 });
 
 
-test('Calculate 3 rows', () => {
+it('Calculate 3 rows', () => {
     const data_in = [
         { 'percent': 10 },
         { 'percent': 100 },
@@ -31,8 +32,6 @@ test('Calculate 3 rows', () => {
 
     const data_out = addHours(data_in, hrs);
 
-    console.log(data_out)
-
-    expect(data_out).toEqual(data_target)
+    assert.deepStrictEqual(data_out, data_target)
 
 });

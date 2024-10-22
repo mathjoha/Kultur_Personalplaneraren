@@ -7,15 +7,17 @@
     "dev": "observable preview",
     "deploy": "observable deploy",
     "observable": "observable",
-    "test": "ENVIRONMENT=dev jest --textRegex=tests/.*.test.js$ --coverage"
+    "test": "mocha 'tests/*.test.js'"
   },
   "dependencies": {
     "@observablehq/framework": "^1.12.0",
     "d3-dsv": "^3.0.1",
-    "d3-time-format": "^4.1.0"
+    "d3-time-format": "^4.1.0",
+    "mocha": "^10.7.3"
   },
   "devDependencies": {
     "jest": "^29.7.0",
+    "mocha": "^10.1.0",
     "rimraf": "^5.0.5"
   },
   "engines": {
