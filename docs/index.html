@@ -13,6 +13,10 @@
 <link rel="modulepreload" href="./_observablehq/client.e7afcba6.js">
 <link rel="modulepreload" href="./_observablehq/runtime.8eb97cbb.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.8048ec16.js">
+<link rel="modulepreload" href="./_import/scripts/main.0b2fd439.js">
+<link rel="modulepreload" href="./_import/scripts/hours.a56e52f6.js">
+<link rel="modulepreload" href="./_import/scripts/matrix.1296b0c8.js">
+<link rel="modulepreload" href="./_import/scripts/titles.cf852d99.js">
 <link rel="modulepreload" href="./_observablehq/stdlib/inputs.9d076414.js">
 <link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.16/e828d8c8.js">
 <link rel="modulepreload" href="./_npm/htl@0.3.1/063eb405.js">
@@ -79,14 +83,14 @@ const hrs_base = view(Inputs.radio(new Map([
 return {hrs_base};
 }});
 
-define({id: "d1b1e970", inputs: ["view","Inputs","hrs_base"], outputs: ["seltitle"], body: (view,Inputs,hrs_base) => {
-var seltitle = view(Inputs.radio(new Map([
-  ['Lektor', {'base':0.1, "research": 0.3, "teaching": 0.7, "dev": 0}],
-  ['Lektor med docentkompetens', {'base': 0.1, "research" : 0.35, "teaching": 0.65, "dev": 0}],
-  ['Professor', {'base': 0.05, "research" : 0.51, "teaching": 0.49, "dev": 0}],
-  ['Biträdande Lektor', {'base': 0.05, "research" : 0.51, "teaching": 0.49, "dev": 0}],
-  ['Adjunkt', {'base': 0.1, "research" : 0, "teaching": 0.90, "dev": 0.1}],
-]),
+define({id: "bde8bbca", outputs: ["divideHours","addHours","buildData","titles"], body: async () => {
+const [{default: divideHours}, {default: addHours}, {default: buildData}, {default: titles}] = await Promise.all([import("./_import/scripts/main.0b2fd439.js"), import("./_import/scripts/hours.a56e52f6.js"), import("./_import/scripts/matrix.1296b0c8.js"), import("./_import/scripts/titles.cf852d99.js")]);
+
+return {divideHours,addHours,buildData,titles};
+}});
+
+define({id: "ef951e9f", inputs: ["view","Inputs","titles","hrs_base"], outputs: ["seltitle"], body: (view,Inputs,titles,hrs_base) => {
+var seltitle = view(Inputs.radio(new Map(titles),
 {disabled : hrs_base == null, width: 500
 }))
 return {seltitle};
@@ -129,63 +133,43 @@ const hrs = hrs_base * deltid / 100
 return {hrs};
 }});
 
-define({id: "89af9455", inputs: ["title","hrs"], outputs: ["granted_hours"], body: (title,hrs) => {
-const granted_hours = title['base'] * hrs
-return {granted_hours};
+define({id: "3341a7a0", inputs: ["divideHours","title","bidrag"], outputs: ["basep","teachp","re_othp"], body: (divideHours,title,bidrag) => {
+const [
+  basep,
+  teachp,
+  re_othp,
+] = divideHours(title, bidrag)
+return {basep,teachp,re_othp};
 }});
 
-define({id: "c60932db", inputs: ["hrs","title"], outputs: ["remaining"], body: (hrs,title) => {
-const remaining = hrs * (1 - title['base'])
-return {remaining};
+define({id: "13106fb3", inputs: ["display","basep","teachp","re_othp"], body: (display,basep,teachp,re_othp) => {
+display([  basep,
+  teachp,
+  re_othp,
+])
 }});
 
-define({id: "6e75528a", inputs: ["bidrag"], outputs: ["financed"], body: (bidrag) => {
-const  financed = bidrag / 100
-return {financed};
+define({id: "2551f811", inputs: ["buildData","basep","teachp","re_othp","bidrag","addHours","hrs"], outputs: ["data"], body: (buildData,basep,teachp,re_othp,bidrag,addHours,hrs) => {
+var data = buildData (
+  basep,
+  teachp,
+  re_othp,
+  bidrag,
+)
+
+data = addHours(data, hrs)
+return {data};
 }});
 
-define({id: "b4e5f40d", inputs: ["financed","title","hrs"], outputs: ["used","research_reserve","unused","teaching","other_research","all_research","total","teachp","basep","re_allp","re_finp","re_othp","totp","re_allt","tott"], body: (financed,title,hrs) => {
-const used = financed + title['base']
-
-const research_reserve = title['base'] == 0.05 ? 0.05 : 0
-const unused = 1 - used - research_reserve
-
-
-const teaching = Math.min(
-    Math.max(0.2, unused * title['teaching']),
-    1 - title['base'] - title['dev'] - title['research'])
-const other_research = unused - teaching + research_reserve
-const all_research = other_research + financed
-const total = teaching + title['base'] + all_research
-
-const teachp = Math.round(teaching * 100)
-const basep = Math.round(title['base'] * 100)
-const re_allp = Math.round(all_research * 100)
-const re_finp = Math.round(financed * 100)
-const re_othp = Math.round(other_research * 100)
-const totp = Math.round(total * 100)
-
-const re_allt = Math.round(all_research * hrs)
-
+define({id: "7895b723", inputs: ["data","hrs"], outputs: ["totp","total","tott","re_allp","re_allt"], body: (data,hrs) => {
+const totp = data.reduce((a, b) => (a + b.percent), 0)
+const total = totp / 100
 const tott = Math.round(total * hrs)
-return {used,research_reserve,unused,teaching,other_research,all_research,total,teachp,basep,re_allp,re_finp,re_othp,totp,re_allt,tott};
-}});
 
-define({id: "89f54fa2", inputs: ["basep","teachp","re_othp","bidrag","hrs"], outputs: ["data","calculateHours"], body: (basep,teachp,re_othp,bidrag,hrs) => {
-var data = [
-  {'name': '1. Övrig tid ', 'percent': basep},
-  {'name': '2. Undervisning', 'percent': teachp},
-  {'name': '3. Forskning - Fakultet*', 'percent': re_othp},
-  {'name': '4. Forskning - Bidrag', 'percent': bidrag},
-]
+const re_allp = data[3].percent + data[2].percent
+const re_allt = data[3].hours + data[2].hours
 
-function calculateHours(item, index, arr) {
-  arr[index]['hours'] = Math.round(arr[index]['percent'] * hrs/100);
-}
-
-data.forEach(calculateHours)
-
-return {data,calculateHours};
+return {totp,total,tott,re_allp,re_allt};
 }});
 
 define({id: "e8aaa3a3", mode: "inline", inputs: ["resize","Plot","data","display"], body: async (resize,Plot,data,display) => {
@@ -288,7 +272,8 @@ Math.max(0, re_allt).toLocaleString("sv-SE")
 <h5>1. Hur gammal är du?</h5>
 <div class="observablehq observablehq--block"><!--:a77b92ca:--></div>
 <h5>2. Vilken anställningsform har du?</h5>
-<div class="observablehq observablehq--block"><!--:d1b1e970:--></div>
+<div class="observablehq observablehq--block"><!--:bde8bbca:--></div>
+<div class="observablehq observablehq--block"><!--:ef951e9f:--></div>
 <div class="observablehq observablehq--block"><!--:655b8f3e:--></div>
 <div class="observablehq observablehq--block"><!--:16f00750:--></div>
 <h5>3. Hur stor omfattning har din anställning?</h5>
@@ -296,11 +281,10 @@ Math.max(0, re_allt).toLocaleString("sv-SE")
 <h5>4. Hur stor andel bidragsfinansierad forskning har du?</h5>
 <div class="observablehq observablehq--block"><!--:8728c716:--></div>
 <div class="observablehq observablehq--block"><!--:1c397390:--></div>
-<div class="observablehq observablehq--block"><!--:89af9455:--></div>
-<div class="observablehq observablehq--block"><!--:c60932db:--></div>
-<div class="observablehq observablehq--block"><!--:6e75528a:--></div>
-<div class="observablehq observablehq--block"><!--:b4e5f40d:--></div>
-<div class="observablehq observablehq--block"><!--:89f54fa2:--></div>
+<div class="observablehq observablehq--block"><!--:3341a7a0:--></div>
+<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:13106fb3:--></div>
+<div class="observablehq observablehq--block"><!--:2551f811:--></div>
+<div class="observablehq observablehq--block"><!--:7895b723:--></div>
 <div class="grid grid-cols-1">
   <div class="card"><observablehq-loading></observablehq-loading><!--:e8aaa3a3:--></div>
 </div>
