@@ -8,8 +8,10 @@ export default function divideHours(title, bidrag) {
     const other_research_upper = (title.research / denominator) * unused
     const teaching_upper = (title.teaching / denominator) * unused
 
-    const teaching = teaching_upper
-    const other_research = other_research_upper
+    const teaching = Math.max(0.2, teaching_upper)
+    const other_research = other_research_upper - Math.max(0, 0.2 - teaching_upper)
+
+
 
     const teachp = Math.round(teaching * 10000) / 100
     const basep = Math.round(title['base'] * 10000) / 100
