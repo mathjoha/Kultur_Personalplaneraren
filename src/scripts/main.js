@@ -7,9 +7,11 @@ export default function divideHours(title, bidrag) {
     const unused = 1 - used - research_reserve
 
 
-    const teaching = Math.min(
-        Math.max(0.2, unused * title['teaching']),
-        1 - title['base'] - title['dev'] - title['research'])
+    const teaching = Math.max(0.2,
+        Math.min(
+            Math.max(0.2, unused * title['teaching']),
+            1 - title['base'] - title['dev'] - title['research'])
+    )
     const other_research = unused - teaching + research_reserve
 
     const teachp = Math.round(teaching * 100)
