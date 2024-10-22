@@ -1,5 +1,4 @@
-
-function divideHours(title, hrs, bidrag) {
+export default function divideHours(title, hrs, bidrag) {
     const granted_hours = title['base'] * hrs
     const remaining = hrs * (1 - title['base'])
     const financed = bidrag / 100
