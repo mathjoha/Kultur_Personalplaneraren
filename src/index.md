@@ -115,6 +115,7 @@ const tott = Math.round(total * hrs)
 
 
 ```js
+
 var data = [
   {'name': '1. Övrig tid ', 'percent': basep},
   {'name': '2. Undervisning', 'percent': teachp},
@@ -122,12 +123,17 @@ var data = [
   {'name': '4. Forskning - Bidrag', 'percent': bidrag},
 ]
 
+function addHours(data, hrs){
+
 function calculateHours(item, index, arr) {
   arr[index]['hours'] = Math.round(arr[index]['percent'] * hrs/100);
 }
 
 data.forEach(calculateHours)
+return data
+}
 
+data = addHours(data, hrs)
 ```
 
 <div class="grid grid-cols-1">
