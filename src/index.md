@@ -87,22 +87,12 @@ const [
 ```
 
 ```js
-display([  basep,
-  teachp,
-  re_othp,
-])
-```
-
-```js
-
-var data = buildData (
+const data = addHours(buildData (
   basep,
   teachp,
   re_othp,
   bidrag,
-)
-
-data = addHours(data, hrs)
+), hrs)
 ```
 
 
