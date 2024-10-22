@@ -75,14 +75,16 @@ const hrs = hrs_base * deltid / 100
 
 
 ```js
-const granted_hours = title['base'] * hrs
-const remaining = hrs * (1 - title['base'])
-const  financed = bidrag / 100
 
-const used = financed + title['base']
+function divideHours(title, hrs, bidrag){
+  const granted_hours = title['base'] * hrs
+  const remaining = hrs * (1 - title['base'])
+  const  financed = bidrag / 100
 
-const research_reserve = title['base'] == 0.05 ? 0.05 : 0
-const unused = 1 - used - research_reserve
+  const used = financed + title['base']
+
+  const research_reserve = title['base'] == 0.05 ? 0.05 : 0
+  const unused = 1 - used - research_reserve
 
 
 const teaching = Math.min(
@@ -99,6 +101,17 @@ const re_othp = Math.round(other_research * 100)
 
 const re_allt = Math.round(all_research * hrs)
 
+return [
+  basep,
+  teachp,
+  re_othp,
+]
+}
+
+const [  basep,
+  teachp,
+  re_othp,
+] = divideHours(title, hrs, bidrag)
 ```
 
 
@@ -116,15 +129,18 @@ var data = buildData (
   bidrag,
 )
 
-
 data = addHours(data, hrs)
 ```
 
 
 ```js
 const totp = data.reduce((a, b) => (a + b.percent), 0)
-const total = totp*100
+const total = totp / 100
 const tott = Math.round(total * hrs)
+
+const re_allp = data[3].percent + data[3].percent
+const re_allt = data[3].hours + data[3].hours
+
 ```
 
 
