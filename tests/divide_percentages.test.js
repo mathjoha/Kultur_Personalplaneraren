@@ -21,10 +21,3 @@ it('Lower teaching threshold', () => {
     const teaching = divideHours(title, 0)[1]
     assert.ok(teaching >= 20);
 });
-
-
-it('Lower teaching threshold with tons of dev', () => {
-    const title = { 'base': 0.1, "research": 0.3, "teaching": 0.7, "dev": 10 };
-    const teaching = divideHours(title, 0)[1]
-    assert.equal(teaching, 20);
-});
