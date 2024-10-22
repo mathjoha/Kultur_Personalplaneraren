@@ -120,16 +120,10 @@ var data = buildData (
 data = addHours(data, hrs)
 ```
 
-```js
-display(data)
-```
 
 ```js
-const total = teaching + title['base'] + all_research
-const totp = data.reduce((a, b) => (a + b.percent), 0) *100
-
-display(total == totp ? 'ok' : 'not ok')
-
+const totp = data.reduce((a, b) => (a + b.percent), 0)
+const total = totp*100
 const tott = Math.round(total * hrs)
 ```
 
