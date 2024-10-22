@@ -76,18 +76,9 @@ const hrs = hrs_base * deltid / 100
 
 ```js
 const granted_hours = title['base'] * hrs
-```
-
-```js
 const remaining = hrs * (1 - title['base'])
-```
-
-```js
 const  financed = bidrag / 100
-```
 
-
-```js
 const used = financed + title['base']
 
 const research_reserve = title['base'] == 0.05 ? 0.05 : 0
@@ -99,17 +90,21 @@ const teaching = Math.min(
     1 - title['base'] - title['dev'] - title['research'])
 const other_research = unused - teaching + research_reserve
 const all_research = other_research + financed
-const total = teaching + title['base'] + all_research
 
 const teachp = Math.round(teaching * 100)
 const basep = Math.round(title['base'] * 100)
 const re_allp = Math.round(all_research * 100)
 const re_finp = Math.round(financed * 100)
 const re_othp = Math.round(other_research * 100)
-const totp = Math.round(total * 100)
 
 const re_allt = Math.round(all_research * hrs)
 
+```
+
+```js
+
+const total = teaching + title['base'] + all_research
+const totp = Math.round(total * 100)
 const tott = Math.round(total * hrs)
 ```
 
@@ -118,8 +113,6 @@ import addHours  from './scripts/hours.js'
 import buildData from './scripts/matrix.js'
 ```
 
-
-
 ```js
 
 var data = buildData (
@@ -127,7 +120,6 @@ var data = buildData (
   teachp,
   re_othp,
   bidrag,
-
 )
 
 
