@@ -17,10 +17,11 @@ export default function divideHours(title, bidrag) {
     const basep = Math.round(title['base'] * 10000) / 100
     const re_othp = Math.round(other_research * 10000) / 100
 
-
-    return [
+    const result = [
         basep,
         teachp,
         re_othp,
     ]
+
+    return result
 }
