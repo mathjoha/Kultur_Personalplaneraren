@@ -126,9 +126,9 @@ display(data)
 
 ```js
 const total = teaching + title['base'] + all_research
-const total_alt = data.reduce((a, b) => (a + b.percent), 0) / 100
+const totp2 = data.reduce((a, b) => (a + b.percent), 0) *100
 
-display(total == total_alt? 'ok' : 'not ok')
+display(total == totp2? 'ok' : 'not ok')
 
 const totp = Math.round(total * 100)
 const tott = Math.round(total * hrs)
