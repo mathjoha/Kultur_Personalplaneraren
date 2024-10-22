@@ -1,4 +1,3 @@
-// const addHours = require('../src/scripts/addHours.js');
 import addHours from '../src/scripts/hours.js';
 import assert from "assert";
 

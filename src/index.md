@@ -75,15 +75,19 @@ const hrs = hrs_base * deltid / 100
 
 
 ```js
-
-
-
-const [  basep,
+const [
+  basep,
   teachp,
   re_othp,
 ] = divideHours(title, bidrag)
 ```
 
+```js
+display([  basep,
+  teachp,
+  re_othp,
+])
+```
 
 ```js
 import divideHours from './scripts/main.js'
