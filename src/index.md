@@ -141,8 +141,8 @@ const totp = data.reduce((a, b) => (a + b.percent), 0)
 const total = totp / 100
 const tott = Math.round(total * hrs)
 
-const re_allp = data[3].percent + data[3].percent
-const re_allt = data[3].hours + data[3].hours
+const re_allp = data[3].percent + data[2].percent
+const re_allt = data[3].hours + data[2].hours
 
 ```
 
