@@ -5,7 +5,8 @@
 # Calculation tool for personell planning
 
 This simple tool is meant to help with the personell planning at the
-Department of Arts and Cultural Sciences at Lund university.
+Department of Arts and Cultural Sciences at Lund university,
+[more information](https://internt.ht.lu.se/allm/inst/kultur/anstalld/personalplanering/)
 
 It is a single-page web application that runs in the user's browser thanks
 to JavaScript and [Observable](https://observablehq.com/).
