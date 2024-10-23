@@ -26,19 +26,21 @@ const hrs_base = view(Inputs.radio(new Map([
 
 
 ```js
-var seltitle = view(Inputs.radio(new Map([
-  ['Lektor', {'base':0.1, "research": 0.2, "teaching": 0.8, "dev": 0}],
-  ['Lektor med docentkompetens', {'base': 0.1, "research" : 0.25, "teaching": 0.75, "dev": 0}],
-  ['Professor', {'base': 0.05, "research" : 0.51, "teaching": 0.49, "dev": 0}],
-  ['Biträdande Lektor', {'base': 0.05, "research" : 0.51, "teaching": 0.49, "dev": 0}],
-  ['Adjunkt', {'base': 0.1, "research" : 0, "teaching": 0.90, "dev": 0.1}],
-]),
+import divideHours from './scripts/main.js'
+import addHours  from './scripts/hours.js'
+import buildData from './scripts/matrix.js'
+import titles from './scripts/titles.js'
+
+```
+
+```js
+var seltitle = view(Inputs.radio(new Map(titles),
 {disabled : hrs_base == null, width: 500
 }))
 ```
 
 ```js
-const notitle = {'base':0.00, "research": 0, "teaching": 0, "dev": 0}
+const notitle = {'base':0.3, "research": 0.3, "teaching": 0.3}
 const title = seltitle != null ? seltitle  : notitle
 ```
 
@@ -75,60 +77,34 @@ const hrs = hrs_base * deltid / 100
 
 
 ```js
-const granted_hours = title['base'] * hrs
+const [
+  basep,
+  teachp,
+  re_othp,
+] = divideHours(title, bidrag)
 ```
 
 ```js
-const remaining = hrs * (1 - title['base'])
+const data = addHours(buildData (
+  basep,
+  teachp,
+  re_othp,
+  bidrag,
+), hrs)
 ```
 
-```js
-const  financed = bidrag / 100
-```
-
 
 ```js
-const used = financed + title['base']
-
-const research_reserve = title['base'] == 0.05 ? 0.05 : 0
-const unused = 1 - used - research_reserve
-
-
-const teaching = Math.min(
-    Math.max(0.2, unused * title['teaching']),
-    1 - title['base'] - title['dev'] - title['research'])
-const other_research = unused - teaching + research_reserve
-const all_research = other_research + financed
-const total = teaching + title['base'] + all_research
-
-const teachp = Math.round(teaching * 100)
-const basep = Math.round(title['base'] * 100)
-const re_allp = Math.round(all_research * 100)
-const re_finp = Math.round(financed * 100)
-const re_othp = Math.round(other_research * 100)
-const totp = Math.round(total * 100)
-
-const re_allt = Math.round(all_research * hrs)
-
+const totp = data.reduce((a, b) => (a + b.percent), 0)
+const total = totp / 100
 const tott = Math.round(total * hrs)
-```
 
-
-```js
-var data = [
-  {'name': '1. Övrig tid ', 'percent': basep},
-  {'name': '2. Undervisning', 'percent': teachp},
-  {'name': '3. Forskning - Fakultet*', 'percent': re_othp},
-  {'name': '4. Forskning - Bidrag', 'percent': bidrag},
-]
-
-function calculateHours(item, index, arr) {
-  arr[index]['hours'] = Math.round(arr[index]['percent'] * hrs/100);
-}
-
-data.forEach(calculateHours)
+const re_allp = data[3].percent + data[2].percent
+const re_allt = data[3].hours + data[2].hours
 
 ```
+
+
 
 <div class="grid grid-cols-1">
   <div class="card">${
@@ -149,9 +125,10 @@ data.forEach(calculateHours)
 
 
 ```js
+if (title !== notitle) {
 display(
   `\nÖvrig tid:    ${data[0]['percent']}% (${data[0]['hours']} h)\nUndervisning: ${data[1]['percent']}% (${data[1]['hours']} h)\nForskning:    ${re_allp}% (${re_allt} h)\n    Varav bidrag:    ${data[3]['percent']}% (${data[3]['hours']} h)\n    Varav Fakultet*: ${data[2]['percent']}% (${data[2]['hours']} h)\n\nTotal: ${totp}% (${tott} h)`
-)
+)}
 ```
 
 
