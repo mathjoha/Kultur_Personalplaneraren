@@ -23,15 +23,17 @@ export default function divideHours(title, bidrag) {
         re_othp,
     ]
 
+    // Verification before returning
     const sum_research = re_othp + bidrag
+    const required_research = Math.round(title.research * 100)
 
-    const sum = result.reduce((a, b) => (a + b), 0)
-    if (sum !== 100 - bidrag) {
+    const sum = Math.round(result.reduce((a, b) => (a + b), 0) + bidrag)
+    if (sum !== 100) {
         throw new Error(`Sum of results is not 100% [${sum}]`)
     } if (teachp < 20) {
         throw new Error(`Teaching is below 20% [${teachp}]`)
-    } if (title.research * 100 > sum_research) {
-        throw new Error(`Research [${sum}] is below its required [${title.research * 100}]%`)
+    } if (required_research > sum_research) {
+        throw new Error(`Research [${sum_research}] is below its required [${required_research}]%`)
     }
 
 
