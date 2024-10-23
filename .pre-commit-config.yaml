@@ -13,7 +13,7 @@ repos:
         name: test
         language: script
         entry: ./mocha.sh
-#     -   id: build
-#         name: build
-#         language: script
-#         entry: ./build.sh
+    -   id: build
+        name: build
+        language: script
+        entry: ./build.sh
