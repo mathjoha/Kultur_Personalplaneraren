@@ -59,10 +59,6 @@ const deltid = view(Inputs.range([min_percent, 100],
 ```
 
 ```js
-deltid
-```
-
-```js
 const updated_title = updateBase(title, hrs_base, deltid)
 const max_research_percent = title == notitle ? 1 - title['base'] - 0.2 : (deltid*0.8)/100 - title['base']
 ```
@@ -100,10 +96,6 @@ const data = addHours(buildData (
   re_othp,
   re_bidrag,
 ), hrs)
-```
-
-```js
-re_bidrag
 ```
 
 ```js
