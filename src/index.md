@@ -3,7 +3,7 @@ toc: false
 ---
 
 ```js
-const version =  'v1.1.0'
+const version =  'v1.0.3'
 ```
 
 <div style="float: right" >${version}</div>
@@ -30,8 +30,7 @@ import divideHours from './scripts/main.js'
 import addHours  from './scripts/hours.js'
 import buildData from './scripts/matrix.js'
 import titles from './scripts/titles.js'
-import minPartTime from './scripts/part.time.js';
-import updateBase from './scripts/effective.base.js';
+
 ```
 
 ```js
@@ -41,15 +40,17 @@ var seltitle = view(Inputs.radio(new Map(titles),
 ```
 
 ```js
-const notitle = {'base':0.2, "research": 0.4, "teaching": 0.4}
+const notitle = {'base':0.3, "research": 0.3, "teaching": 0.3}
 const title = seltitle != null ? seltitle  : notitle
 ```
 
+```js
+const max_research_percent = 1 - title['base'] - 0.2
+```
 <h5>3. Hur stor omfattning har din anställning?</h5>
 
 ```js
-const min_percent = minPartTime(title, hrs_base)
-const deltid = view(Inputs.range([min_percent, 100],
+const deltid = view(Inputs.range([5, 100],
   {
     'step': 1,
       disabled : title == notitle,
@@ -58,15 +59,10 @@ const deltid = view(Inputs.range([min_percent, 100],
     }))
 ```
 
-```js
-const updated_title = updateBase(title, hrs_base, deltid)
-const max_research_percent = title == notitle ? 1 - title['base'] - 0.2 : (deltid*0.8)/100 - title['base']
-```
-
 <h5>4. Hur stor andel bidragsfinansierad forskning har du?</h5>
 
 ```js
-const bidrag = view(Inputs.range([0, Math.round(max_research_percent * 100) +1],
+const bidrag = view(Inputs.range([0, Math.round(max_research_percent * 100)],
   {
     'step': 1,
     disabled : title == notitle,
@@ -85,8 +81,7 @@ const [
   basep,
   teachp,
   re_othp,
-  re_bidrag,
-] = divideHours(updated_title, bidrag, deltid)
+] = divideHours(title, bidrag)
 ```
 
 ```js
@@ -94,16 +89,17 @@ const data = addHours(buildData (
   basep,
   teachp,
   re_othp,
-  re_bidrag,
+  bidrag,
 ), hrs)
 ```
 
+
 ```js
-const totp = Math.round(data.reduce((a, b) => (a + b.percent), 0))
+const totp = data.reduce((a, b) => (a + b.percent), 0)
 const total = totp / 100
 const tott = Math.round(total * hrs)
 
-const re_allp = Math.round((data[3].percent + data[2].percent)*100)/100
+const re_allp = data[3].percent + data[2].percent
 const re_allt = data[3].hours + data[2].hours
 
 ```
