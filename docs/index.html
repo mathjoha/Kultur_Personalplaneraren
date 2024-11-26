@@ -64,8 +64,8 @@
 
 import {define} from "./_observablehq/client.e7afcba6.js";
 
-define({id: "a005a8e3", outputs: ["version"], body: () => {
-const version =  'v1.1.0'
+define({id: "2909ea7b", outputs: ["version"], body: () => {
+const version =  'v1.1.1'
 return {version};
 }});
 
@@ -116,8 +116,8 @@ const deltid = view(Inputs.range([min_percent, 100],
 return {min_percent,deltid};
 }});
 
-define({id: "9dd55965", inputs: ["updateBase","title","hrs_base","deltid","notitle"], outputs: ["updated_title","max_research_percent"], body: (updateBase,title,hrs_base,deltid,notitle) => {
-const updated_title = updateBase(title, hrs_base, deltid)
+define({id: "2e51b0b2", inputs: ["deltid","updateBase","title","hrs_base","notitle"], outputs: ["updated_title","max_research_percent"], body: (deltid,updateBase,title,hrs_base,notitle) => {
+const updated_title = deltid == undefined ? updateBase(title, hrs_base, deltid) : updateBase(title, 2000, 100)
 const max_research_percent = title == notitle ? 1 - title['base'] - 0.2 : (deltid*0.8)/100 - title['base']
 return {updated_title,max_research_percent};
 }});
@@ -262,7 +262,7 @@ Math.max(0, re_allt).toLocaleString("sv-SE")
 </script>
 <div id="observablehq-center">
 <main id="observablehq-main" class="observablehq">
-<div class="observablehq observablehq--block"><!--:a005a8e3:--></div>
+<div class="observablehq observablehq--block"><!--:2909ea7b:--></div>
 <div style="float: right"><observablehq-loading></observablehq-loading><!--:5ca4f385:--></div>
 <h2>Beräkningsverktyg</h2>
 <!-- Text? -->
@@ -274,7 +274,7 @@ Math.max(0, re_allt).toLocaleString("sv-SE")
 <div class="observablehq observablehq--block"><!--:5a7bfc09:--></div>
 <h5>3. Hur stor omfattning har din anställning?</h5>
 <div class="observablehq observablehq--block"><!--:b6bc50f7:--></div>
-<div class="observablehq observablehq--block"><!--:9dd55965:--></div>
+<div class="observablehq observablehq--block"><!--:2e51b0b2:--></div>
 <h5>4. Hur stor andel bidragsfinansierad forskning har du?</h5>
 <div class="observablehq observablehq--block"><!--:c7ba026c:--></div>
 <div class="observablehq observablehq--block"><!--:1c397390:--></div>

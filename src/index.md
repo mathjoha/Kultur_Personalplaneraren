@@ -3,7 +3,7 @@ toc: false
 ---
 
 ```js
-const version =  'v1.1.0'
+const version =  'v1.1.1'
 ```
 
 <div style="float: right" >${version}</div>
@@ -59,7 +59,7 @@ const deltid = view(Inputs.range([min_percent, 100],
 ```
 
 ```js
-const updated_title = updateBase(title, hrs_base, deltid)
+const updated_title = deltid == undefined ? updateBase(title, hrs_base, deltid) : updateBase(title, 2000, 100)
 const max_research_percent = title == notitle ? 1 - title['base'] - 0.2 : (deltid*0.8)/100 - title['base']
 ```
 
