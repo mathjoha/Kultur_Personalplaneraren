@@ -31,6 +31,7 @@ import addHours  from './scripts/hours.js'
 import buildData from './scripts/matrix.js'
 import titles from './scripts/titles.js'
 import minPartTime from './scripts/part.time.js';
+import updateBase from './scripts/effective.base.js';
 ```
 
 ```js
@@ -44,9 +45,6 @@ const notitle = {'base':0.3, "research": 0.3, "teaching": 0.3}
 const title = seltitle != null ? seltitle  : notitle
 ```
 
-```js
-const max_research_percent = 1 - title['base'] - 0.2
-```
 <h5>3. Hur stor omfattning har din anställning?</h5>
 
 ```js
@@ -60,10 +58,19 @@ const deltid = view(Inputs.range([min_percent, 100],
     }))
 ```
 
+```js
+deltid
+```
+
+```js
+const updated_title = updateBase(title, hrs_base, deltid)
+const max_research_percent = title == notitle ? 1 - title['base'] - 0.2 : (deltid*0.8)/100 - title['base']
+```
+
 <h5>4. Hur stor andel bidragsfinansierad forskning har du?</h5>
 
 ```js
-const bidrag = view(Inputs.range([0, Math.round(max_research_percent * 100)],
+const bidrag = view(Inputs.range([0, Math.round(max_research_percent * 100) +1],
   {
     'step': 1,
     disabled : title == notitle,
@@ -82,7 +89,8 @@ const [
   basep,
   teachp,
   re_othp,
-] = divideHours(title, bidrag)
+  re_bidrag,
+] = divideHours(updated_title, bidrag, deltid)
 ```
 
 ```js
@@ -90,10 +98,13 @@ const data = addHours(buildData (
   basep,
   teachp,
   re_othp,
-  bidrag,
+  re_bidrag,
 ), hrs)
 ```
 
+```js
+re_bidrag
+```
 
 ```js
 const totp = data.reduce((a, b) => (a + b.percent), 0)
