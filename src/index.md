@@ -99,11 +99,11 @@ const data = addHours(buildData (
 ```
 
 ```js
-const totp = data.reduce((a, b) => (a + b.percent), 0)
+const totp = Math.round(data.reduce((a, b) => (a + b.percent), 0))
 const total = totp / 100
 const tott = Math.round(total * hrs)
 
-const re_allp = data[3].percent + data[2].percent
+const re_allp = Math.round((data[3].percent + data[2].percent)*100)/100
 const re_allt = data[3].hours + data[2].hours
 
 ```
