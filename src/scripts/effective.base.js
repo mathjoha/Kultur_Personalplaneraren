@@ -11,9 +11,9 @@ export default function updateBase(title, hours, part) {
     const as_ratio = Math.ceil(effective_other_percent * 10000) / 10000
 
     const updated_title = {
-        research: title.research,
-        teaching: title.teaching,
         base: as_ratio,
+        teaching: title.teaching,
+        research: title.research,
         natural_base: title.base
     }
     return updated_title

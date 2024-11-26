@@ -41,7 +41,7 @@ var seltitle = view(Inputs.radio(new Map(titles),
 ```
 
 ```js
-const notitle = {'base':0.3, "research": 0.3, "teaching": 0.3}
+const notitle = {'base':0.2, "research": 0.4, "teaching": 0.4}
 const title = seltitle != null ? seltitle  : notitle
 ```
 

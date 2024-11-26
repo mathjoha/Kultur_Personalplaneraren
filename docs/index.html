@@ -13,12 +13,12 @@
 <link rel="modulepreload" href="./_observablehq/client.e7afcba6.js">
 <link rel="modulepreload" href="./_observablehq/runtime.8eb97cbb.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.8048ec16.js">
-<link rel="modulepreload" href="./_import/scripts/main.cf3c8af1.js">
+<link rel="modulepreload" href="./_import/scripts/main.27f6ce10.js">
 <link rel="modulepreload" href="./_import/scripts/hours.a56e52f6.js">
 <link rel="modulepreload" href="./_import/scripts/matrix.1296b0c8.js">
 <link rel="modulepreload" href="./_import/scripts/titles.b9af6070.js">
-<link rel="modulepreload" href="./_import/scripts/part.time.7ae4d021.js">
-<link rel="modulepreload" href="./_import/scripts/effective.base.be83ee45.js">
+<link rel="modulepreload" href="./_import/scripts/part.time.9e38a8d7.js">
+<link rel="modulepreload" href="./_import/scripts/effective.base.51d05698.js">
 <link rel="modulepreload" href="./_observablehq/stdlib/inputs.9d076414.js">
 <link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.16/e828d8c8.js">
 <link rel="modulepreload" href="./_npm/htl@0.3.1/063eb405.js">
@@ -86,7 +86,7 @@ return {hrs_base};
 }});
 
 define({id: "9dedcae2", outputs: ["divideHours","addHours","buildData","titles","minPartTime","updateBase"], body: async () => {
-const [{default: divideHours}, {default: addHours}, {default: buildData}, {default: titles}, {default: minPartTime}, {default: updateBase}] = await Promise.all([import("./_import/scripts/main.cf3c8af1.js"), import("./_import/scripts/hours.a56e52f6.js"), import("./_import/scripts/matrix.1296b0c8.js"), import("./_import/scripts/titles.b9af6070.js"), import("./_import/scripts/part.time.7ae4d021.js"), import("./_import/scripts/effective.base.be83ee45.js")]);
+const [{default: divideHours}, {default: addHours}, {default: buildData}, {default: titles}, {default: minPartTime}, {default: updateBase}] = await Promise.all([import("./_import/scripts/main.27f6ce10.js"), import("./_import/scripts/hours.a56e52f6.js"), import("./_import/scripts/matrix.1296b0c8.js"), import("./_import/scripts/titles.b9af6070.js"), import("./_import/scripts/part.time.9e38a8d7.js"), import("./_import/scripts/effective.base.51d05698.js")]);
 
 return {divideHours,addHours,buildData,titles,minPartTime,updateBase};
 }});
@@ -98,15 +98,10 @@ var seltitle = view(Inputs.radio(new Map(titles),
 return {seltitle};
 }});
 
-define({id: "d3276c18", inputs: ["seltitle"], outputs: ["notitle","title"], body: (seltitle) => {
-const notitle = {'base':0.3, "research": 0.3, "teaching": 0.3}
+define({id: "5a7bfc09", inputs: ["seltitle"], outputs: ["notitle","title"], body: (seltitle) => {
+const notitle = {'base':0.2, "research": 0.4, "teaching": 0.4}
 const title = seltitle != null ? seltitle  : notitle
 return {notitle,title};
-}});
-
-define({id: "16f00750", inputs: ["title"], outputs: ["max_research_percent"], body: (title) => {
-const max_research_percent = 1 - title['base'] - 0.2
-return {max_research_percent};
 }});
 
 define({id: "b6bc50f7", inputs: ["minPartTime","title","hrs_base","view","Inputs","notitle"], outputs: ["min_percent","deltid"], body: (minPartTime,title,hrs_base,view,Inputs,notitle) => {
@@ -121,8 +116,20 @@ const deltid = view(Inputs.range([min_percent, 100],
 return {min_percent,deltid};
 }});
 
-define({id: "8728c716", inputs: ["view","Inputs","max_research_percent","title","notitle"], outputs: ["bidrag"], body: (view,Inputs,max_research_percent,title,notitle) => {
-const bidrag = view(Inputs.range([0, Math.round(max_research_percent * 100)],
+define({id: "3c0b9f4f", inputs: ["deltid","display"], body: async (deltid,display) => {
+display(await(
+deltid
+))
+}});
+
+define({id: "9dd55965", inputs: ["updateBase","title","hrs_base","deltid","notitle"], outputs: ["updated_title","max_research_percent"], body: (updateBase,title,hrs_base,deltid,notitle) => {
+const updated_title = updateBase(title, hrs_base, deltid)
+const max_research_percent = title == notitle ? 1 - title['base'] - 0.2 : (deltid*0.8)/100 - title['base']
+return {updated_title,max_research_percent};
+}});
+
+define({id: "c7ba026c", inputs: ["view","Inputs","max_research_percent","title","notitle"], outputs: ["bidrag"], body: (view,Inputs,max_research_percent,title,notitle) => {
+const bidrag = view(Inputs.range([0, Math.round(max_research_percent * 100) +1],
   {
     'step': 1,
     disabled : title == notitle,
@@ -136,23 +143,30 @@ const hrs = hrs_base * deltid / 100
 return {hrs};
 }});
 
-define({id: "3341a7a0", inputs: ["divideHours","title","bidrag"], outputs: ["basep","teachp","re_othp"], body: (divideHours,title,bidrag) => {
+define({id: "8f18fd5e", inputs: ["divideHours","updated_title","bidrag","deltid"], outputs: ["basep","teachp","re_othp","re_bidrag"], body: (divideHours,updated_title,bidrag,deltid) => {
 const [
   basep,
   teachp,
   re_othp,
-] = divideHours(title, bidrag)
-return {basep,teachp,re_othp};
+  re_bidrag,
+] = divideHours(updated_title, bidrag, deltid)
+return {basep,teachp,re_othp,re_bidrag};
 }});
 
-define({id: "af9aeb3a", inputs: ["addHours","buildData","basep","teachp","re_othp","bidrag","hrs"], outputs: ["data"], body: (addHours,buildData,basep,teachp,re_othp,bidrag,hrs) => {
+define({id: "df57c250", inputs: ["addHours","buildData","basep","teachp","re_othp","re_bidrag","hrs"], outputs: ["data"], body: (addHours,buildData,basep,teachp,re_othp,re_bidrag,hrs) => {
 const data = addHours(buildData (
   basep,
   teachp,
   re_othp,
-  bidrag,
+  re_bidrag,
 ), hrs)
 return {data};
+}});
+
+define({id: "ab3f5921", inputs: ["re_bidrag","display"], body: async (re_bidrag,display) => {
+display(await(
+re_bidrag
+))
 }});
 
 define({id: "7895b723", inputs: ["data","hrs"], outputs: ["totp","total","tott","re_allp","re_allt"], body: (data,hrs) => {
@@ -269,15 +283,17 @@ Math.max(0, re_allt).toLocaleString("sv-SE")
 <h5>2. Vilken anställningsform har du?</h5>
 <div class="observablehq observablehq--block"><!--:9dedcae2:--></div>
 <div class="observablehq observablehq--block"><!--:ef951e9f:--></div>
-<div class="observablehq observablehq--block"><!--:d3276c18:--></div>
-<div class="observablehq observablehq--block"><!--:16f00750:--></div>
+<div class="observablehq observablehq--block"><!--:5a7bfc09:--></div>
 <h5>3. Hur stor omfattning har din anställning?</h5>
 <div class="observablehq observablehq--block"><!--:b6bc50f7:--></div>
+<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:3c0b9f4f:--></div>
+<div class="observablehq observablehq--block"><!--:9dd55965:--></div>
 <h5>4. Hur stor andel bidragsfinansierad forskning har du?</h5>
-<div class="observablehq observablehq--block"><!--:8728c716:--></div>
+<div class="observablehq observablehq--block"><!--:c7ba026c:--></div>
 <div class="observablehq observablehq--block"><!--:1c397390:--></div>
-<div class="observablehq observablehq--block"><!--:3341a7a0:--></div>
-<div class="observablehq observablehq--block"><!--:af9aeb3a:--></div>
+<div class="observablehq observablehq--block"><!--:8f18fd5e:--></div>
+<div class="observablehq observablehq--block"><!--:df57c250:--></div>
+<div class="observablehq observablehq--block"><observablehq-loading></observablehq-loading><!--:ab3f5921:--></div>
 <div class="observablehq observablehq--block"><!--:7895b723:--></div>
 <div class="grid grid-cols-1">
   <div class="card"><observablehq-loading></observablehq-loading><!--:e8aaa3a3:--></div>
