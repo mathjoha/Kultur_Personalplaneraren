@@ -30,7 +30,7 @@ import divideHours from './scripts/main.js'
 import addHours  from './scripts/hours.js'
 import buildData from './scripts/matrix.js'
 import titles from './scripts/titles.js'
-
+import minPartTime from './scripts/part.time.js';
 ```
 
 ```js
@@ -50,7 +50,8 @@ const max_research_percent = 1 - title['base'] - 0.2
 <h5>3. Hur stor omfattning har din anställning?</h5>
 
 ```js
-const deltid = view(Inputs.range([5, 100],
+const min_percent = minPartTime(title, hrs_base)
+const deltid = view(Inputs.range([min_percent, 100],
   {
     'step': 1,
       disabled : title == notitle,
