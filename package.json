@@ -8,8 +8,7 @@
     "deploy": "observable deploy",
     "observable": "observable",
     "test": "mocha -b 'tests/*.test.js'",
-    "test_all": "mocha -b 'tests/*.test.js'",
-    "intg": "mocha -b 'tests/*half*.test.js'"
+    "test_all": "mocha -b 'tests/*.test.js'"
   },
   "dependencies": {
     "@observablehq/framework": "^1.12.0",
