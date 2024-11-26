@@ -1,4 +1,7 @@
-export default function updateBase(title, hours, part_time) {
+export default function updateBase(title, hours, part) {
+
+    const part_time = part === undefined ? 100 : part
+
     const fixed_other = Math.round(title.base * hours)
 
     const efffective_hours = hours * part_time / 100
