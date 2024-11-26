@@ -9,8 +9,6 @@ it('Calculate 1 row', () => {
 
     const data_out = addHours(data_in, hrs);
 
-    console.log(data_out)
-
     assert.deepStrictEqual(data_out, data_target)
 });
 
