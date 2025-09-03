@@ -37,7 +37,6 @@ export default function divideHours(title, bidrag, part) {
 
     if (research_prelim < 0 & teaching_prelim < 0) {
         throw new Error(`${research_prelim} && ${teaching_prelim}]%`)
-
     }
 
 
@@ -59,6 +58,8 @@ export default function divideHours(title, bidrag, part) {
         re_othp,
         re_bidrag,
     ]
+
+    console.log(title, result)
 
 
     // Verification before returning

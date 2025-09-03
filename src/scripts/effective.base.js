@@ -4,7 +4,7 @@ export default function updateBase(title, hours, part) {
 
     const fixed_other = Math.round(title.base * hours)
 
-    const efffective_hours = hours * part_time / 100
+    const efffective_hours = hours
 
     const effective_other_percent = fixed_other / efffective_hours
 
