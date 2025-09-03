@@ -87,6 +87,8 @@ const [
   re_othp,
   re_bidrag,
 ] = divideHours(updated_title, bidrag, deltid)
+
+console.log(basep)
 ```
 
 ```js

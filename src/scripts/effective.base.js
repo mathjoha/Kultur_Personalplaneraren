@@ -2,12 +2,10 @@ export default function updateBase(title, hours, part) {
 
     const part_time = part == undefined | part == null ? 100 : part
 
-    // Calculate fixed other time as a percentage of individual working hours
     const fixed_other = Math.round(title.base * hours)
 
-    const efffective_hours = hours * part_time / 100
+    const efffective_hours = hours
 
-    // Now we want the base to be expressed as a ratio relative to effective hours
     const effective_other_percent = fixed_other / efffective_hours
 
     const as_ratio = Math.ceil(effective_other_percent * 10000) / 10000

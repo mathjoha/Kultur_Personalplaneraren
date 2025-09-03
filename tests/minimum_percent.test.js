@@ -24,13 +24,15 @@ describe('Minimum Percent', () => {
                 assert.ok(target <= rest);
             })
             let updated_title = updateBase(title[1], hours, min_percent)
-            let effective_other_hours = Math.round(updated_title.base * min_hours)
-            it(`${str_title} w/ ${hours} updated other == target`, () => {
-                assert.equal(effective_other_hours, Math.round(target));
-            })
 
-            it(`${str_title} w/ ${hours} updated base > original`, () => {
-                assert.ok(updated_title.base > title[1].base);
+            // Effective rate is no longer used, ergo this check makes no sense
+            // let effective_other_hours = Math.round(updated_title.base * min_hours)
+            // it(`${str_title} w/ ${hours} updated other == target`, () => {
+            //     assert.equal(effective_other_hours, Math.round(target));
+            // })
+
+            it(`${str_title} w/ ${hours} updated base == original`, () => {
+                assert.ok(Math.round(updated_title.base * 100) == Math.round(title[1].base * 100));
             })
 
         });
