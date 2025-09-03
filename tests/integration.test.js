@@ -94,4 +94,63 @@ describe('Test hours division', () => {
             assert.equal(data.reduce((a, b) => (a + b.hours), 0), 1700)
         })
     });
-})
+
+    // New tests for different working hours scenarios
+    describe('Lektor target at 1200h & 0%', () => {
+        const raw_title = titles.find(title => title[0] === 'Lektor')[1];
+        const title = updateBase(raw_title, 1200)
+        const [basep,
+            teachp,
+            re_othp,
+            re_bidrag
+        ] = divideHours(title, 0);
+        const data = addHours(buildData(
+            basep, teachp, re_othp, re_bidrag
+        ), 1200);
+        it('Lektor h-teach at 1200h & 0% ', () => {
+            assert.equal(data[1].hours, 850)
+        });
+        it('Lektor h-research at 1200h & 0% ', () => {
+            assert.equal(data[2].hours, 243)
+        });
+        it('Lektor h-bidrag at 1200h & 0% ', () => {
+            assert.equal(data[3].hours, 0)
+        });
+        it('Lektor sum at 1200h & 0% ', () => {
+            assert.equal(data.reduce((a, b) => (a + b.hours), 0), 1200)
+        });
+        it('Lektor h-other at 1200h & 0% ', () => {
+            // Test that other time is still relative to working hours (10% of 1200 = 120)
+            assert.equal(data[0].hours, 120)
+        });
+    });
+
+    describe('Professor target at 1500h & 0%', () => {
+        const raw_title = titles.find(title => title[0] === 'Professor')[1];
+        const title = updateBase(raw_title, 1500)
+        const [basep,
+            teachp,
+            re_othp,
+            re_bidrag
+        ] = divideHours(title, 0);
+        const data = addHours(buildData(
+            basep, teachp, re_othp, re_bidrag
+        ), 1500);
+        it('Professor h-other at 1500h & 0% ', () => {
+            // Test that other time is still relative to working hours (5% of 1500 = 75)
+            assert.equal(data[0].hours, 75)
+        });
+        it('Professor h-teach at 1500h & 0% ', () => {
+            assert.equal(data[1].hours, 666)
+        });
+        it('Professor h-research at 1500h & 0% ', () => {
+            assert.equal(data[2].hours, 783)
+        });
+        it('Professor h-bidrag at 1500h & 0% ', () => {
+            assert.equal(data[3].hours, 0)
+        });
+        it('Professor sum at 1500h & 0% ', () => {
+            assert.equal(data.reduce((a, b) => (a + b.hours), 0), 1500)
+        });
+    });
+});
